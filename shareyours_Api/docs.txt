@@ -1,0 +1,5 @@
+mongoose
+https://code.tutsplus.com/es/articles/an-introduction-to-mongoose-for-mongodb-and-nodejs--cms-29527
+
+https://mrviriato.wordpress.com/2018/10/01/como-hacer-buscador-al-mongoose-en-3-sencillos-pasos/
+
