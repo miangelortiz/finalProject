@@ -1,2 +1,8 @@
 # finalProject
-Final Project Codespace Academy
+Final project Codespace Academy
+
+# ShareYours - a startup community
+
+
+in progress...
+
