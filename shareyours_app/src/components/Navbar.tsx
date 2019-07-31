@@ -4,7 +4,7 @@ const Navbar: React.FC = () => {
   // const { Navbar, NavItem } = require("react-materialize");
   return (
     <nav>
-      <div className="nav-wrapper deep-purple lighten-4">
+      <ul className="nav-wrapper deep-purple lighten-4">
         <a href="#" className="brand-logo">
           Logo
         </a>
@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
             <a href="badges.html">registrarse</a>
           </li>
         </ul>
-      </div>
+      </ul>
     </nav>
   );
 };
