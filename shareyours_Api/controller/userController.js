@@ -9,7 +9,7 @@ const controller = {};
 //(Synchronous) Returns the JsonWebToken as string
 controller.auth = (req, res) => {
     userModel.find({
-        name: req.body.name,
+        email: req.body.email,
         password: md5(req.body.password)
     })
         .then(result => {
@@ -17,10 +17,10 @@ controller.auth = (req, res) => {
                 var token = jwt.sign(
                     {
                         id: result[0]._id,
-                        name: result[0].name,
+                        email: result[0].email,
                     }, "mysecret", { expiresIn: 3600 }
                 );
-                localStorage.setItem("token", token)
+                // localStorage.setItem("token", token)
                 res.send(token);
             } else {
                 res.status(400).send('Invalid credentials')
@@ -30,7 +30,7 @@ controller.auth = (req, res) => {
 
 //REGISTER NEW USER
 
-controller.add = (req, res) => {
+controller.add = async (req, res) => {
 
 
     try {
@@ -39,12 +39,15 @@ controller.add = (req, res) => {
                 name: req.body.name,
                 email: req.body.email,
                 password: md5(req.body.password),
-                nick_name: req.body.nick_name,
                 avatar: req.body.avatar
             });
-            newUser.save((err, obj) => {
+            await newUser.save((err, obj) => {
                 if (err) {
-                    res.sendStatus(err);
+                    if (err.code === 11000) {
+                        res.send("El usuario ya existe.");
+                      } else {
+                        res.send("error " + err.errmsg[0]);
+                      }  
                 } else {
                     res.send(obj);
                 }

@@ -14,8 +14,8 @@ const projectSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    tag: String
-},{ collection: 'projects' });
+    tags: [{ type: String }]
+}, { collection: 'projects' });
 
 const projectModel = mongoose.model('project', projectSchema);
 module.exports = projectModel;

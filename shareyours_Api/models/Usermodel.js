@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     name: String,
-    email: {type:String, required: true},
+    email: {type:String, required: true, unique:true},
     password: {type:String, required: true},
     nick_name: String,
-    avatar: String
+    avatar: String,
 }, { collection: 'users' });
 
 const userModel = mongoose.model('user', userSchema);
