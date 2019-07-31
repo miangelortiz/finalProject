@@ -1,19 +1,18 @@
-const userModel = require('../models/Usermodel')
+const userModel = require('../models/userModel')
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 
 const controller = {};
 
-//Endpoint "sign" nos devuelve un token si el usuario es válido
+//GET TOKEN
+//Endpoint "sign" returns a token if the user is valid
 //(Synchronous) Returns the JsonWebToken as string
 controller.auth = (req, res) => {
-    const data = req.body;
     userModel.find({
-        name: data.name,
-        password: md5(data.password)
+        name: req.body.name,
+        password: md5(req.body.password)
     })
         .then(result => {
-            console.log(result)
             if (result.length > 0) {
                 var token = jwt.sign(
                     {
@@ -21,6 +20,7 @@ controller.auth = (req, res) => {
                         name: result[0].name,
                     }, "mysecret", { expiresIn: 3600 }
                 );
+                localStorage.setItem("token", token)
                 res.send(token);
             } else {
                 res.status(400).send('Invalid credentials')
@@ -28,11 +28,35 @@ controller.auth = (req, res) => {
         })
 }
 
+//REGISTER NEW USER
 
-// controller.list = (req, res) => {
-//     userModel.find({}).then(result => {
-//         console.log(result)
-//         res.send(result)
-//     })
-// }
+controller.add = (req, res) => {
+
+
+    try {
+        if (!req.headers.authorization) {
+            const newUser = new userModel({
+                name: req.body.name,
+                email: req.body.email,
+                password: md5(req.body.password),
+                nick_name: req.body.nick_name,
+                avatar: req.body.avatar
+            });
+            newUser.save((err, obj) => {
+                if (err) {
+                    res.sendStatus(err);
+                } else {
+                    res.send(obj);
+                }
+            })
+        } else {
+            localStorage.removeItem(token);
+        }
+    } catch{
+        res.sendStatus(400);
+    }
+
+}
+
+
 module.exports = controller;

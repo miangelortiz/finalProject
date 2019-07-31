@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 
 const userSchema = new Schema({
-    name: {type:String, required: true},
+    name: String,
     email: {type:String, required: true},
-    password: String,
-    nickname: String,
+    password: {type:String, required: true},
+    nick_name: String,
     avatar: String
 }, { collection: 'users' });
 
-const userModel = mongoose.model('userModel', userSchema);
+const userModel = mongoose.model('user', userSchema);
 module.exports = userModel;
