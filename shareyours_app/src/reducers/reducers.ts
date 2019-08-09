@@ -3,19 +3,23 @@ import { tokenReducer } from "./tokenReducer/tokenReducer";
 import { IMyUser, IUser } from "../interfaces/userInterfaces";
 import { myUserReducer } from "./usersReducers/myUserReducer";
 import { usersReducer } from "./usersReducers/usersReducer";
-import { IProyect } from "../interfaces/proyectInterfaces";
-import { proyectReducer } from "./proyectsReducers/proyectReducer";
+import { IProject } from "../interfaces/projectInterfaces";
+import { projectReducer } from "./projectsReducers/projectReducer";
+import { ITag } from "../interfaces/tagInterface";
+import { tagsReducer } from "./tagReducer/tagReducer";
 
 export interface IGlobalState {
   token: string;
   myUser: IMyUser;
   users: IUser[];
-  proyects: IProyect[];
+  projects: IProject[];
+  tags: ITag[];
 }
 
 export const reducers = combineReducers<IGlobalState>({
   token: tokenReducer,
   myUser: myUserReducer,
   users: usersReducer,
-  proyects: proyectReducer
+  projects: projectReducer,
+  tags: tagsReducer
 });

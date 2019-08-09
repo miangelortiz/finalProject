@@ -1,0 +1,20 @@
+body {
+  background-color: #fafafa;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mainCont {
+  background-color: #fafafa;
+}
+
+.mainRow{
+  padding-top: 100px;
+}
+
+.footRow{
+  padding-top: 140px;
+}
+
+.mainImage{
+  width: 500px;
+}

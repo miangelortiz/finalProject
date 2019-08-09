@@ -18,7 +18,8 @@ controller.auth = (req, res) => {
         var token = jwt.sign(
           {
             id: result[0]._id,
-            email: result[0].email
+            email: result[0].email,
+            name: result[0].name
           },
           "mysecret",
           { expiresIn: 3600 }
@@ -46,7 +47,7 @@ controller.add = async (req, res) => {
           if (err.code === 11000) {
             res.sendStatus(409);
           } else {
-            res.send("error " + err.errmsg[0]);
+            res.send(405);
           }
         } else {
           res.send(obj);

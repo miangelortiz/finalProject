@@ -9,12 +9,19 @@ const projectSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    edited: {
+        type: Date,
+        default: Date.now
+    },
     votes: Number,
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    tags: [{ type: String }]
+    tags: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'tag'
+    }]
 }, { collection: 'projects' });
 
 const projectModel = mongoose.model('project', projectSchema);

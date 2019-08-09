@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import * as actions from "../actions/actions";
 import { IMyUser } from "../interfaces/userInterfaces";
 import { connect } from "react-redux";
+import { RouteComponentProps } from "react-router";
+const { TextInput, Button, Badge } = require("react-materialize");
 
 interface IProps {}
 
@@ -11,17 +13,7 @@ interface IPropsGlobal {
   setMyUser: (myUser: IMyUser) => void;
 }
 
-const Login: React.FC<IProps & IPropsGlobal> = props => {
-  const {
-    Row,
-    Col,
-    TextInput,
-    Button,
-    Icon,
-    CardPanel,
-    Badge
-  } = require("react-materialize");
-
+const Login: React.FC<IProps & IPropsGlobal & RouteComponentProps> = props => {
   const [emailValue, setEmailValue] = React.useState<string>("");
   const [passwordValue, setPasswordValue] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
@@ -55,6 +47,7 @@ const Login: React.FC<IProps & IPropsGlobal> = props => {
           if (decoded !== null && typeof decoded !== "string") {
             props.setMyUser(decoded);
           }
+          props.history.push("/projects");
         });
       } else {
         setError("Correo o contraseña incorrecta");
@@ -63,58 +56,44 @@ const Login: React.FC<IProps & IPropsGlobal> = props => {
   };
 
   return (
-    <>
-      <Row>
-        <Col m={4} s={12}>
-          <CardPanel className="z-depth-4 card-panel">
-            <Row>
-              <Col>
-                <TextInput
-                  email
-                  validate
-                  label="correo electrónico"
-                  icon={<Icon tiny>email</Icon>}
-                  error="Escriba un correo correcto"
-                  success="¡Bien hecho!"
-                  value={emailValue}
-                  onChange={emailChange}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <TextInput
-                  password
-                  validate
-                  label="contraseña"
-                  icon={<Icon tiny>lock</Icon>}
-                  error="Debe tener 4 o más caracteres"
-                  success="¡Bien hecho!"
-                  minlength="4"
-                  value={passwordValue}
-                  onChange={passwordChange}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Button
-                  className=" deep-purple lighten-2"
-                  node="a"
-                  waves="light"
-                  small
-                  style={{ marginRight: "5px" }}
-                  onClick={getToken}
-                >
-                  Entrar
-                </Button>
-              </Col>
-              <Badge className="red-text">{error}</Badge>
-            </Row>
-          </CardPanel>
-        </Col>
-      </Row>
-    </>
+    <span>
+      <TextInput
+        noLayout="false"
+        email
+        validate
+        label="correo electrónico"
+        error="Escriba un correo correcto"
+        success="¡Bien hecho!"
+        value={emailValue}
+        onChange={emailChange}
+      />
+
+      <TextInput
+        noLayout="false"
+        password
+        validate
+        label="contraseña"
+        error="Debe tener 4 o más caracteres"
+        success="¡Bien hecho!"
+        minlength="4"
+        value={passwordValue}
+        onChange={passwordChange}
+      />
+
+      <Button
+        className="teal lighten-2"
+        floating
+        node="a"
+        waves="light"
+        small
+        icon="check"
+        onClick={getToken}
+      />
+      <span>
+        <strong> ¡Adelante!</strong>
+      </span>
+      <Badge className="red-text">{error}</Badge>
+    </span>
   );
 };
 

@@ -1,31 +1,44 @@
 import { ActionCreator } from "redux";
 import { TAction } from "./actionTypes";
 import { IMyUser, IUser } from "../interfaces/userInterfaces";
-import { IProyect } from "../interfaces/proyectInterfaces";
+import { IProject } from "../interfaces/projectInterfaces";
+import { ITag } from "../interfaces/tagInterface";
 
-
-export const setToken:ActionCreator<TAction> = (newToken:string) =>({
-    type: "SET_TOKEN",
-    newToken
+//Token action
+export const setToken: ActionCreator<TAction> = (newToken: string) => ({
+  type: "SET_TOKEN",
+  newToken
 });
 
+//Users actions
 export const setMyUser: ActionCreator<TAction> = (myUser: IMyUser) => ({
-    type: "SET_MY_USER",
-    myUser
-  });
+  type: "SET_MY_USER",
+  myUser
+});
 
 export const setUsers: ActionCreator<TAction> = (users: IUser[]) => ({
-    type: "SET_USERS",
-    users
-})
+  type: "SET_USERS",
+  users
+});
 
-export const regUser: ActionCreator<TAction> = (user:IUser)=>({
-    type: "REG_USER",
-    user
-})
+export const regUser: ActionCreator<TAction> = (user: IUser) => ({
+  type: "REG_USER",
+  user
+});
 
-export const setProyects: ActionCreator<TAction> = (proyects:IProyect[])=>({
-    type: "SET_PROYECTS",
-    proyects
-})
+//Proyects actions
+export const setProjects: ActionCreator<TAction> = (projects: IProject[]) => ({
+  type: "SET_PROJECTS",
+  projects
+});
 
+export const addNewProject: ActionCreator<TAction> = (project: IProject) => ({
+  type: "ADD_PROJECT",
+  project
+});
+
+//Tags action
+export const setTags: ActionCreator<TAction> = (tags: ITag[]) => ({
+  type: "SET_TAGS",
+  tags
+});

@@ -11,4 +11,5 @@ export interface IMyUser {
     iat?: number;
     id?: string;
     email?:string;
+    name?: string;
 }

@@ -1,0 +1,17 @@
+.flipCol{
+    margin-bottom:30px;
+}
+
+.chip{
+    background-color: #083B66;
+    color:white;
+    font-size: 10px;
+}
+
+.flippy-front {
+    border-radius: 5%;
+}
+
+.flippy-back {
+    border-radius: 5%;
+}
