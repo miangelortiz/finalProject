@@ -4,7 +4,7 @@ export interface IProject {
   subtitle: string;
   content: string;
   created: string;
-  edited: Date;
+  edited: string;
   votes: number;
   user: { _id:string, name: string };
   tags: [{ _id:string, name: string }];

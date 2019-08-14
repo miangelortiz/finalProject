@@ -1,7 +1,7 @@
 import React from "react";
 import jwt from "jsonwebtoken";
-import * as actions from "../actions/actions";
-import { IMyUser } from "../interfaces/userInterfaces";
+import * as actions from "../../actions/actions";
+import { IMyUser } from "../../interfaces/userInterfaces";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router";
 const { TextInput, Button, Badge } = require("react-materialize");

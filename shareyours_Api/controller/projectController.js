@@ -1,9 +1,10 @@
 const projectModel = require("../models/projectModel");
+const ideaModel = require("../models/ideaModel");
 const jwt = require("jsonwebtoken");
 
 const controller = {};
 
-//LIST ALL PROJECTS (and user name -> populate)
+//LIST ALL PROJECTS
 controller.listProjects = async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   // const decoded = jwt.verify(token, "mysecret");
@@ -13,7 +14,8 @@ controller.listProjects = async (req, res) => {
       const projects = await projectModel
         .find({})
         .populate("user", { name: 1 })
-        .populate("tags", { name: 1 });
+        .populate("tags", { name: 1 })
+        .populate("ideas");
       res.send(projects);
     } else {
       res.sendStatus(401); //UNAUTHORIZED The request has not been applied because it lacks valid authentication credentials for the target resource.
@@ -40,11 +42,16 @@ controller.addProject = async (req, res) => {
         user: userId,
         tags: req.body.tags
       });
-      await newProject.save((err, obj) => {
+      await newProject.save(async (err, obj) => {
         if (err) {
           res.sendStatus(405);
         } else {
-          res.send(obj);
+          const new_project = await projectModel
+            .findById({ _id: obj._id })
+            .populate("user", { name: 1 })
+            .populate("tags", { name: 1 })
+            .populate("ideas");
+          res.send(new_project);
         }
       });
     }
@@ -53,32 +60,12 @@ controller.addProject = async (req, res) => {
   }
 };
 
-//FOUND USER PROJECTS(by id)
-// controller.listUserProject = async (req, res) => {
-//   const token = req.headers.authorization.split(" ")[1];
-//   try {
-//     if (token) {
-//       const myProjects = await projectModel.find({ user: req.params.id });
-//       if (myProjects.length <= 0) {
-//         res.sendStatus(404); //Not found user projects
-//       } else {
-//         res.send(myProjects);
-//       }
-//     } else {
-//       res.sendStatus(404);
-//     }
-//   } catch {
-//     res.sendStatus(400); //Bad Request
-//   }
-// };
 
 //EDIT PROJECT (if the project belongs to the user logged in)
 controller.editProject = async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   try {
     if (token) {
-      // const decoded = jwt.verify(token, "mysecret");
-      // const userId = decoded.id
       await projectModel.findOneAndUpdate(
         { _id: req.params.id },
         {
@@ -92,12 +79,40 @@ controller.editProject = async (req, res) => {
         }
       );
     }
-    const newProject = await projectModel.findById({ _id: req.params.id });
-    res.send(newProject);
+    const editProject = await projectModel
+      .findById({ _id: req.params.id })
+      .populate("user", { name: 1 })
+      .populate("tags", { name: 1 })
+      .populate("ideas");
+    res.send(editProject);
   } catch {
     res.sendStatus(400);
   }
 };
+
+//UPDATE PROJECT VOTES
+controller.updateProjectVotes = async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  try {
+    if (token) {
+      await projectModel.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          votes: req.body.votes
+        }
+      )
+    }
+    const updateVotes = await projectModel
+      .findById({ _id: req.params.id })
+      .populate("user", { name: 1 })
+      .populate("tags", { name: 1 })
+      .populate("ideas");
+    res.send(updateVotes);
+  } catch{
+    res.sendStatus(400)
+  }
+}
+
 
 //DELETE USER PROJECT
 controller.delProject = async (req, res) => {
@@ -108,11 +123,15 @@ controller.delProject = async (req, res) => {
       await projectModel.findOneAndDelete({ _id: projectId }, (err, _obj) => {
         if (err) {
           res.sendStatus(404);
-          console.log("no hay nada");
-        } else {
-          res.send(projectId);
+
         }
       });
+      await ideaModel.deleteMany({ project: projectId }, (err, _obj) => {
+        if (err) {
+          res.sendStatus(404);
+        }
+      })
+      res.sendStatus(200);
     }
   } catch {
     res.sendStatus(400);

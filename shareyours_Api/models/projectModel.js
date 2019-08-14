@@ -21,6 +21,10 @@ const projectSchema = new Schema({
     tags: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'tag'
+    }],
+    ideas: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "idea"
     }]
 }, { collection: 'projects' });
 

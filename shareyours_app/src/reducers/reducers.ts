@@ -7,6 +7,8 @@ import { IProject } from "../interfaces/projectInterfaces";
 import { projectReducer } from "./projectsReducers/projectReducer";
 import { ITag } from "../interfaces/tagInterface";
 import { tagsReducer } from "./tagReducer/tagReducer";
+import { IIdea } from "../interfaces/ideaInterface";
+import { ideasReducer } from "./ideasReducers/ideasReducer";
 
 export interface IGlobalState {
   token: string;
@@ -14,6 +16,7 @@ export interface IGlobalState {
   users: IUser[];
   projects: IProject[];
   tags: ITag[];
+  ideas: IIdea[];
 }
 
 export const reducers = combineReducers<IGlobalState>({
@@ -21,5 +24,6 @@ export const reducers = combineReducers<IGlobalState>({
   myUser: myUserReducer,
   users: usersReducer,
   projects: projectReducer,
-  tags: tagsReducer
+  tags: tagsReducer,
+  ideas: ideasReducer
 });

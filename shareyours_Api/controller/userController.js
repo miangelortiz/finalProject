@@ -31,6 +31,16 @@ controller.auth = (req, res) => {
     });
 };
 
+//LIST USERS
+controller.listUsers = async (_req, res) => {
+  try {
+    const users = await userModel.find({});
+    res.send(users);
+  } catch{
+    res.sendStatus(400);
+  }
+}
+
 
 //REGISTER NEW USER
 controller.add = async (req, res) => {

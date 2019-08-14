@@ -1,7 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { IMyUser } from "../../interfaces/userInterfaces";
+import { IMyUser, IUser } from "../../interfaces/userInterfaces";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
 import * as actions from "../../actions/actions";
@@ -11,19 +11,26 @@ const {
   NavItem,
   Dropdown,
   Divider,
-  Button
+  Chip
 } = require("react-materialize");
 
 interface IPropsGlobal {
   myUser: IMyUser;
-  setToken: (token: string) => void;
+  users: IUser[];
+  setToken: (token: string) => void;  
 }
 
 const MyNavbar: React.FC<IPropsGlobal> = props => {
+  const userLog= props.users.find(u=>u._id===props.myUser.id);
+
   const logOut = () => {
     localStorage.removeItem("token");
     props.setToken("");
   };
+
+  if(!userLog){
+    return null
+  }
 
   return (
     <Navbar
@@ -32,21 +39,28 @@ const MyNavbar: React.FC<IPropsGlobal> = props => {
       alignLinks="right"
       className="navBar"
     >
-      <NavItem className="black-text text-darken-2 ">
+      <NavItem>
+        <Link to={"/projects/"} className="navLink">
+          proyectos
+        </Link>
+      </NavItem>
+
+      <NavItem className="navLink">
         <Dropdown
           className="userBut "
           trigger={
-            <Button
-              className="teal lighten-2 "
-              floating
-              node="a"
-              waves="light"
-              small
-              icon="person"
-            />
+            <Chip>
+              <img
+                src={"http://localhost:3000/images/avatars/"+userLog.avatar +".png"}
+                className="responsive-img"
+                alt="user"
+              />
+              {props.myUser.name}
+            </Chip>
+        
           }
         >
-          <a href="#">mi perfil</a>
+          <a href="">mi perfil</a>
           <Divider />
           <Link to={"/projects/user/" + props.myUser.id}> mis proyectos</Link>
           <Divider />
@@ -54,18 +68,18 @@ const MyNavbar: React.FC<IPropsGlobal> = props => {
           <Divider />
           <a onClick={logOut}>cerrar sesión</a>
         </Dropdown>
-        <strong>{props.myUser.name}</strong>
       </NavItem>
     </Navbar>
   );
 };
 
 const mapStateToProps = (state: IGlobalState) => ({
-  myUser: state.myUser
+  myUser: state.myUser,
+  users: state.users
 });
 
 const mapDispatchToProps = {
-  setToken: actions.setToken
+  setToken: actions.setToken,
 };
 
 export default connect(

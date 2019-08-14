@@ -1,10 +1,10 @@
 import React from "react";
-import { IUser } from "../interfaces/userInterfaces";
-import * as actions from "../actions/actions";
-import { IGlobalState } from "../reducers/reducers";
+import { IUser } from "../../interfaces/userInterfaces";
+import * as actions from "../../actions/actions";
+import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
-const { TextInput, Button, Badge } = require("react-materialize");
+const { TextInput, Button, Badge, Select } = require("react-materialize");
 
 interface IPropsGlobal {
   users: IUser[];
@@ -15,6 +15,7 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
   const [emailValue, setEmailValue] = React.useState<string>("");
   const [passwordValue, setPasswordValue] = React.useState<string>("");
   const [userNameValue, setUserNameValue] = React.useState<string>("");
+  const [avatarValue, setAvatarsValue] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
 
   const emailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,10 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
     setError("");
   };
 
+  const avatarChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setAvatarsValue(event.currentTarget.value);
+  };
+
   //Register user
   const regUser = () => {
     fetch("http://localhost:3000/api/user/add", {
@@ -40,7 +45,8 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
       body: JSON.stringify({
         email: emailValue,
         name: userNameValue,
-        password: passwordValue
+        password: passwordValue,
+        avatar: avatarValue
       })
     }).then(response => {
       if (response.ok) {
@@ -87,6 +93,42 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         value={passwordValue}
         onChange={passwordChange}
       />
+
+      <Select
+      browserDefault
+        className="icons"
+        onChange={avatarChange}
+        noLayout
+        options={{ dropDownOptions: { closeOnClick: false } }}
+      >
+        <option value="" disabled selected>
+          Elije tu avatar
+        </option>
+        <option
+          value="avatar-01"
+          data-icon="http://localhost:3000/images/avatars/avatar-01.png"
+        >example 1</option>
+        <option
+          value="avatar-02"
+          data-icon="http://localhost:3000/images/avatars/avatar-02.png"
+        >example 2</option>
+        <option
+          value="avatar-03"
+          data-icon="http://localhost:3000/images/avatars/avatar-03.png"
+        >example 3</option>
+        <option
+          value="avatar-04"
+          data-icon="http://localhost:3000/images/avatars/avatar-04.png"
+        >example 4</option>
+        <option
+          value="avatar-05"
+          data-icon="http://localhost:3000/images/avatars/avatar-05.png"
+        >example 5</option>
+        <option
+          value="avatar-06"
+          data-icon="http://localhost:3000/images/avatars/avatar-06.png"
+        >example 6</option>
+      </Select>
 
       <Button
         className="teal lighten-2"

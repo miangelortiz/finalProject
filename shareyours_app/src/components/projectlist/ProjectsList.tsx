@@ -6,9 +6,12 @@ import { IProject } from "../../interfaces/projectInterfaces";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
 import { ITag } from "../../interfaces/tagInterface";
+import { Link, RouteComponentProps } from "react-router-dom";
+import { IIdea } from "../../interfaces/ideaInterface";
+
 
 const { Flippy, FrontSide, BackSide } = require("react-flippy");
-const { Icon } = require("react-materialize");
+const { Icon, Button } = require("react-materialize");
 
 interface IPropsGlobal {
   token: string;
@@ -16,9 +19,12 @@ interface IPropsGlobal {
   projects: IProject[];
   tags: ITag[];
   setProjects: (projects: IProject[]) => void;
+  setIdeas: (ideas: IIdea[]) => void;
 }
 
-const ProjectsList: React.FC<IPropsGlobal> = props => {
+const ProjectsList: React.FC<
+  IPropsGlobal & RouteComponentProps<any>
+> = props => {
   const getProjects = () => {
     fetch("http://localhost:3000/api/projects", {
       headers: {
@@ -34,14 +40,30 @@ const ProjectsList: React.FC<IPropsGlobal> = props => {
     });
   };
 
+  const getIdeas = () => {
+    fetch("http://localhost:3000/api/ideas", {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + props.token
+      }
+    }).then(resp => {
+      if (resp.ok) {
+        resp.json().then(ideas => {
+          props.setIdeas(ideas);
+        });
+      }
+    });
+  };
+
   useEffect(getProjects, [props.token]);
+  useEffect(getIdeas, [props.token]);
 
   return (
     <div className="container">
       <div className="row ">
         {props.projects
           .sort((p1, p2) => p2.votes - p1.votes)
-          .slice(0, 4)
+          .slice(0, 3)
           .map(project => (
             <div className="col s3 flipCol" key={project._id}>
               <Flippy
@@ -85,6 +107,18 @@ const ProjectsList: React.FC<IPropsGlobal> = props => {
                   <br />
                   <span>proyecto creado por </span>
                   {project.user.name}
+                  <Link to={"/projects/" + project._id}>
+                     <Button
+                          className="moreButton"
+                          floating
+                          node="a"
+                          waves="light"
+                          large
+                          icon="zoom_in"
+                          tooltip="Entra, vota y aporta"
+                          tooltipoptions={{ position: "bottom" }}
+                        />
+                  </Link>
                 </BackSide>
               </Flippy>
             </div>
@@ -101,7 +135,8 @@ const mapStateToProps = (state: IGlobalState) => ({
 });
 
 const mapDispatchToProps = {
-  setProjects: actions.setProjects
+  setProjects: actions.setProjects,
+  setIdeas: actions.setIdeas
 };
 
 export default connect(

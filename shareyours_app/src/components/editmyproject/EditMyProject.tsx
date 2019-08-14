@@ -1,11 +1,11 @@
 import React from "react";
 import { IMyUser } from "../../interfaces/userInterfaces";
-import * as actions from "../../actions/actions";
 import { IProject } from "../../interfaces/projectInterfaces";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
-import { ITag } from "../../interfaces/tagInterface";
 import { RouteComponentProps } from "react-router-dom";
+import { ITag } from "../../interfaces/tagInterface";
+import * as actions from "../../actions/actions";
 
 const { TextInput, Textarea, Select, Button } = require("react-materialize");
 
@@ -13,14 +13,29 @@ interface IPropsGlobal {
   token: string;
   myUser: IMyUser;
   tags: ITag[];
+  projects: IProject[];
 
-  addNewProject: (project: IProject) => void;
+  editProject: (project_id: string, project: IProject) => void;
+  removeProject: (project_id: string) => void;
+  removeIdea: (project_id: string) => void;
 }
 
-const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
-  const [titleValue, setTitleValue] = React.useState<string>("");
-  const [subTitleValue, setSubTitleValue] = React.useState<string>("");
-  const [contentValue, setContentValue] = React.useState<string>("");
+const EditMyProject: React.FC<
+  IPropsGlobal & RouteComponentProps<{ projectId: string }>
+> = props => {
+  const project = props.projects.find(
+    p => p._id === props.match.params.projectId
+  );
+
+  const [titleValue, setTitleValue] = React.useState<string>(
+    project ? project.title : ""
+  );
+  const [subTitleValue, setSubTitleValue] = React.useState<string>(
+    project ? project.subtitle : ""
+  );
+  const [contentValue, setContentValue] = React.useState<string>(
+    project ? project.content : ""
+  );
   const [tags, setTagsValue] = React.useState<string[]>([]);
 
   const titleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,10 +58,11 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
     setTagsValue(selectedOptions);
   };
 
-  const addNewProject = () => {
-    const userId = props.myUser.id;
-    fetch("http://localhost:3000/api/projects/add", {
-      method: "POST",
+  //UPDATE PROJECT
+  const updateMyProject = (project_id: string, project: IProject) => {
+    const id = project._id;
+    fetch("http://localhost:3000/api/projects/" + id, {
+      method: "PUT",
       headers: {
         "Content-type": "application/json",
         Authorization: "Bearer " + props.token
@@ -60,12 +76,33 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
     }).then(resp => {
       if (resp.ok) {
         resp.json().then((p: IProject) => {
-          props.addNewProject(p);
-          props.history.push(`/projects/user/${userId}`);
+          props.editProject(project_id, p);
+          props.history.push(`/projects/user/${props.myUser.id}`);
         });
       }
     });
   };
+
+  // REMOVE PROJECT
+  const deleteProject = (project_id: string) => {
+    fetch("http://localhost:3000/api/projects/" + project_id, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + props.token
+      }
+    }).then(resp => {
+      if (resp.ok) {
+        props.removeProject(project_id);
+        props.removeIdea(project_id);
+        props.history.push(`/projects/user/${props.myUser.id}`);
+      }
+    });
+  };
+
+  if (!project) {
+    return null;
+  }
 
   return (
     <div className="container">
@@ -78,7 +115,7 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
                   noLayout
                   text
                   validate
-                  label="Nombre App"
+                  label="Nombre de mi proyecto"
                   value={titleValue}
                   onChange={titleChange}
                 />
@@ -100,24 +137,27 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
               <div className="col s12">
                 <Textarea
                   noLayout
-                  label="Describe tu proyecto"
+                  label="Contenido de mi proyecto"
                   data-length={1000}
                   value={contentValue}
                   onChange={contentChange}
                 />
               </div>
             </div>
+            {/* <div className="row">
+              <div className="col s6">
+                <span>A {project.} les gusta mi proyecto</span>
+              </div>
+            </div> */}
             <div className="row">
               <div className="col s12">
                 <Select
                   multiple
                   onChange={tagsChange}
-                  noLayout
+                  noLayout="false"
                   options={{ dropDownOptions: { closeOnClick: false } }}
+                  value={project.tags.map(t => t._id)}
                 >
-                  <option value="" disabled>
-                    Elige una categoria para tu proyecto
-                  </option>
                   {props.tags.map(t => (
                     <option key={t._id} value={t._id}>
                       {t.name}
@@ -125,17 +165,29 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
                   ))}
                 </Select>
                 <div className="row">
-                  <div className="col s12">
+                  <div className="col s6">
                     <Button
                       className="teal lighten-2"
                       floating
                       node="a"
                       waves="light"
                       large
-                      icon="check"
-                      onClick={addNewProject}
+                      icon="edit"
+                      onClick={() => updateMyProject(project._id, project)}
                     />
-                    <strong> ...comparte tu proyecto!!</strong>
+                  </div>
+                  <div className="col s6">
+                    <Button
+                      className="teal lighten-2"
+                      floating
+                      node="a"
+                      waves="light"
+                      large
+                      icon="delete_forever"
+                      tooltip="Se eliminarán también las ideas aportadas a tu proyecto"
+                      tooltipOptions={{ position: "bottom" }}
+                      onClick={() => deleteProject(project._id)}
+                    />
                   </div>
                 </div>
               </div>
@@ -150,14 +202,17 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
 const mapStateToProps = (state: IGlobalState) => ({
   token: state.token,
   myUser: state.myUser,
-  tags: state.tags
+  tags: state.tags,
+  projects: state.projects
 });
 
 const mapDispatchToProps = {
-  addNewProject: actions.addNewProject
+  editProject: actions.editProject,
+  removeProject: actions.removeProject,
+  removeIdea: actions.removeIdea
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddProject);
+)(EditMyProject);

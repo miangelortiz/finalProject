@@ -9,13 +9,13 @@ const ideaSchema = new Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'user'
     },
     project: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'projects'
+        ref: 'project'
     },
 },{ collection: 'ideas' });
 
-const ideaSchema = mongoose.model('ideaModel', ideaSchema);
+const ideaModel = mongoose.model('idea', ideaSchema);
 module.exports =ideaModel;

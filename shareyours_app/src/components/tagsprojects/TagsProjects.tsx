@@ -1,38 +1,43 @@
 import React from "react";
-import "./MyProjects.css";
-import { IMyUser } from "../../interfaces/userInterfaces";
+import { ITag } from "../../interfaces/tagInterface";
 import { IProject } from "../../interfaces/projectInterfaces";
+import { RouteComponentProps, Link } from "react-router-dom";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
-import { Link, RouteComponentProps } from "react-router-dom";
-
 
 const { Flippy, FrontSide, BackSide } = require("react-flippy");
 const { Icon, Button } = require("react-materialize");
 
 interface IPropsGlobal {
-  myUser: IMyUser;
+  tags: ITag[];
   projects: IProject[];
 }
 
-const MyProjects: React.FC<
-  IPropsGlobal & RouteComponentProps<{ userId: string }>
+const TagsProjects: React.FC<
+  IPropsGlobal & RouteComponentProps<{ tagId: string }>
 > = props => {
-  const myProjects = props.projects.filter(
-    p => p.user._id === props.match.params.userId
+  //   const tagss =props.tags.filter(t=>t._id===props.match.params.tagId)
+  const projects = props.projects.filter(p =>
+    p.tags.find(t => t._id === props.match.params.tagId)
   );
-  if (!myProjects) {
-    return null
+
+  const tag = props.tags.find(t=>t._id===props.match.params.tagId);
+
+  if (!projects) {
+    return null;
+  }
+  if(!tag){
+    return null;
   }
 
   return (
     <div className="container">
       <div className="row ">
-        {myProjects.map(project => (
-          <div className="col s3 flipCol" key={project._id}>
+        <h4>Proyectos etiquetados con {tag.name}</h4>
+        {projects.map(p => (
+          <div className="col s3 flipCol" key={p._id}>
             <Flippy
               flipOnHover={true}
-              //    flipOnClick={true}
               flipDirection="horizontal"
               style={{ width: "300px", height: "300px" }}
             >
@@ -44,7 +49,7 @@ const MyProjects: React.FC<
                   color: "white"
                 }}
               >
-                <span>{project.title}</span>
+                <span>{p.title}</span>
               </FrontSide>
               <BackSide
                 style={{
@@ -53,32 +58,38 @@ const MyProjects: React.FC<
                   textAlign: "center"
                 }}
               >
-                <span> {project.subtitle}</span>
+                <span> {p.subtitle}</span>
                 <br />
                 <br />
                 <span>
-                  {project.tags.map(tag => (
+                  {p.tags.map(tag => (
                     <div className="chip">{tag.name}</div>
                   ))}
                 </span>
                 <br />
-                <span>{new Date(project.created).toLocaleString()}</span>
+                <span>{new Date(p.created).toLocaleDateString()}</span>
                 <br />
                 <span>
                   <Icon tiny>favorite_border</Icon>
-                  {project.votes}
+                  {p.votes}
                 </span>
                 <br />
                 <span>proyecto creado por </span>
-                {project.user.name}
+                {p.user.name}
+                <Link to={"/projects/" + p._id}>
+                  <Button
+                    className="moreButton"
+                    floating
+                    node="a"
+                    waves="light"
+                    large
+                    icon="zoom_in"
+                    tooltip="Entra, vota y aporta"
+                    tooltipOptions={{ position: "bottom" }}
+                  />
+                </Link>
               </BackSide>
             </Flippy>
-
-            <Button flat waves="teal" className="modButton">
-              <Link to={"/projects/edit/" + project._id}>
-                Modifica o elimina tu proyecto
-              </Link>
-            </Button>
           </div>
         ))}
       </div>
@@ -87,8 +98,8 @@ const MyProjects: React.FC<
 };
 
 const mapStateToProps = (state: IGlobalState) => ({
-  myUser: state.myUser,
+  tags: state.tags,
   projects: state.projects
 });
 
-export default connect(mapStateToProps)(MyProjects);
+export default connect(mapStateToProps)(TagsProjects);

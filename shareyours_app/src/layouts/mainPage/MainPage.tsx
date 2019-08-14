@@ -1,12 +1,17 @@
 import React from "react";
-import RegisterUser from "../../components/Register";
-import Login from "../../components/Login";
+import RegisterUser from "../../components/register/Register";
+import Login from "../../components/login/Login";
 import "./MainPage.css";
 import { Route } from "react-router-dom";
+import * as actions from "../../actions/actions";
+import { connect } from "react-redux";
 
+interface IPropsGlobal {
+  setToken: (token: string) => void;  
+}
 const { Collapsible, CollapsibleItem, Icon } = require("react-materialize");
 
-const Main: React.FC = () => {
+const Main: React.FC<IPropsGlobal> = () => {
   return (
     <div className="container mainCont">
       <div className="row mainRow">
@@ -48,4 +53,7 @@ const Main: React.FC = () => {
   );
 };
 
-export default Main;
+const mapDispatchToProps = {
+  setToken: actions.setToken
+};
+export default connect(null, mapDispatchToProps)(Main);

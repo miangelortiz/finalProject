@@ -1,5 +1,6 @@
 .flipCol{
-    margin-bottom:30px;
+    margin:30px;
+    
 }
 
 .chip{
@@ -14,4 +15,11 @@
 
 .flippy-back {
     border-radius: 5%;
+}
+a{
+    color:black;
+}
+
+.moreButton{
+    background-color: #083B66;
 }
