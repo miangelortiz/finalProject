@@ -6,11 +6,26 @@
   width: 100px;
 }
 
-.navLink{
-  font-size: 20px;
+.navLink {
+  font-size: 13px;
+  color: black;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 60px;
+}
+
+.navLink:hover {
+  color: #4db6ac;
+}
+
+nav a {
   color: black;
 }
 
-/* .nav ul a {
-  padding: 0px 15px 0px 70px;
-} */
+.userBut{
+  padding-right: 20px
+}
+
+.modalNav{
+  width: 500px;
+}

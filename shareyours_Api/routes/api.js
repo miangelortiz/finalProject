@@ -13,6 +13,10 @@ router.post("/auth", userController.auth);
 router.post("/user/add", userController.add);
 //List user
 router.get("/users/list", userController.listUsers);
+//Edit user
+router.put("/user/:id", userController.editUser);
+//Delete user
+router.delete("/user/:id", userController.delUser);
 
 //PROJECTS ROUTES
 //List projects
@@ -32,10 +36,14 @@ router.delete("/projects/:id", projectController.delProject);
 router.get("/tags", tagController.listTags);
 
 //IDEAS ROUTE
+//List ideas
 router.get("/ideas", ideaController.listIdeas);
+//Add idea
 router.post("/ideas/add/:id", ideaController.addIdea);
+//Edit idea
+router.put("/idea/edit/:id", ideaController.editIdea);
 
 //AVATAR ROUTE
-router.get("/avatars", avatarController.listAvatar)
+router.get("/avatars", avatarController.listAvatar);
 
 module.exports = router;

@@ -27,6 +27,20 @@ export const regUser: ActionCreator<TAction> = (user: IUser) => ({
   user
 });
 
+export const editUser: ActionCreator<TAction> = (
+  user_id: string,
+  user: IUser
+) => ({
+  type: "EDIT_USER",
+  user_id,
+  user
+});
+
+export const removeUser: ActionCreator<TAction> = (user_id: string) => ({
+  type: "REMOVE_USER",
+  user_id
+});
+
 //Proyects actions
 export const setProjects: ActionCreator<TAction> = (projects: IProject[]) => ({
   type: "SET_PROJECTS",
@@ -61,7 +75,6 @@ export const updateVotes: ActionCreator<TAction> = (
   project
 });
 
-
 //Tags action
 export const setTags: ActionCreator<TAction> = (tags: ITag[]) => ({
   type: "SET_TAGS",
@@ -69,18 +82,30 @@ export const setTags: ActionCreator<TAction> = (tags: ITag[]) => ({
 });
 
 //Ideas actions
-export const setIdeas: ActionCreator<TAction> = (ideas:IIdea[])=> ({
+export const setIdeas: ActionCreator<TAction> = (ideas: IIdea[]) => ({
   type: "SET_IDEAS",
   ideas
-})
+});
 
-export const addNewIdea: ActionCreator<TAction> = (idea:IIdea)=>({
+export const addNewIdea: ActionCreator<TAction> = (idea: IIdea) => ({
   type: "ADD_IDEA",
   idea
-})
+});
 
 export const removeIdea: ActionCreator<TAction> = (project_id: string) => ({
   type: "REMOVE_IDEA",
   project_id
 });
 
+export const editIdea: ActionCreator<TAction> = (
+  idea_id: string,
+  idea: IIdea
+) => ({
+  type: "EDIT_IDEA",
+  idea_id,
+  idea
+});
+
+export const Reset: ActionCreator<TAction> = () => ({
+  type: "RESET"
+});

@@ -2,8 +2,8 @@ import React from "react";
 import { IMyUser } from "../../interfaces/userInterfaces";
 import { IIdea } from "../../interfaces/ideaInterface";
 import { IGlobalState } from "../../reducers/reducers";
-import * as actions from "../../actions/actions";
 import { connect } from "react-redux";
+import * as actions from "../../actions/actions";
 import { RouteComponentProps } from "react-router-dom";
 
 const { Textarea, Button } = require("react-materialize");
@@ -12,23 +12,30 @@ interface IPropsGlobal {
   myUser: IMyUser;
   token: string;
   ideas: IIdea[];
-  addNewIdea: (idea: IIdea) => void;
+  editIdea: (idea_id: string, idea: IIdea) => void;
 }
 
-const AddIdea: React.FC<
-  IPropsGlobal & RouteComponentProps<{ projectId: string }>
+const EditIdea: React.FC<
+  IPropsGlobal & RouteComponentProps<{ ideaID: string }>
 > = props => {
-  const projectId = props.match.params.projectId;
+const ideaID=props.match.params.ideaID
+  const myidea = props.ideas.find(i => i._id === ideaID);
+  console.log(myidea)
+ 
 
-
-  const [contentValue, setContentValue] = React.useState<string>("");
+  const [contentValue, setContentValue] = React.useState<string>(
+    myidea ? myidea.content : ""
+  );
   const contentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContentValue(event.currentTarget.value);
   };
 
-  const addIdea = () => {
-    fetch("http://localhost:3000/api/ideas/add/" + projectId, {
-      method: "POST",
+ 
+
+  //UDATE IDEA
+  const updateIdea = (idea_id: string, idea: IIdea) => {
+    fetch("http://localhost:3000/api/idea/edit/" + idea._id, {
+      method: "PUT",
       headers: {
         "Content-type": "application/json",
         Authorization: "Bearer " + props.token
@@ -39,12 +46,16 @@ const AddIdea: React.FC<
     }).then(resp => {
       if (resp.ok) {
         resp.json().then((i: IIdea) => {
-          props.addNewIdea(i);
-          props.history.push(`/projects/${projectId}`);
+          props.history.push(`/projects/${i.project._id}`);
+          props.editIdea(idea_id, i); 
         });
       }
     });
   };
+
+  if (!myidea) {
+    return null;
+  }
 
   return (
     <div className="card-panel ">
@@ -52,9 +63,8 @@ const AddIdea: React.FC<
         <div className="col s12">
           <Textarea
             noLayout
-            label="Aporta tu idea al proyecto"
             data-length={500}
-            maxLength="500"
+            maxlength="500"
             value={contentValue}
             onChange={contentChange}
           />
@@ -64,13 +74,13 @@ const AddIdea: React.FC<
         <div className="col s12">
           <Button
             className="teal lighten-2"
-            tooltip="Añade tu idea"
+            tooltip="Actualizar"
             tooltipoptions={{ position: "right" }}
             floating
             waves="light"
             small
-            icon="check"
-            onClick={addIdea}
+            icon="edit"
+            onClick={() => updateIdea(myidea._id, myidea)}
           />
         </div>
       </div>
@@ -80,13 +90,15 @@ const AddIdea: React.FC<
 
 const mapStateToProps = (state: IGlobalState) => ({
   myUser: state.myUser,
-  token: state.token
+  token: state.token,
+  ideas: state.ideas
 });
 
 const mapDispatchToProps = {
-  addNewIdea: actions.addNewIdea
+  editIdea: actions.editIdea
 };
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddIdea);
+)(EditIdea);

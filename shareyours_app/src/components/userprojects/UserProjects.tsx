@@ -1,5 +1,5 @@
 import React from "react";
-import { ITag } from "../../interfaces/tagInterface";
+import { IUser } from "../../interfaces/userInterfaces";
 import { IProject } from "../../interfaces/projectInterfaces";
 import { RouteComponentProps, Link } from "react-router-dom";
 import { IGlobalState } from "../../reducers/reducers";
@@ -9,32 +9,34 @@ const { Flippy, FrontSide, BackSide } = require("react-flippy");
 const { Icon, Button } = require("react-materialize");
 
 interface IPropsGlobal {
-  tags: ITag[];
+  users: IUser[];
   projects: IProject[];
 }
 
-const TagsProjects: React.FC<
-  IPropsGlobal & RouteComponentProps<{ tagId: string }>
+const UserProjects: React.FC<
+  IPropsGlobal & RouteComponentProps<{ userId: string }>
 > = props => {
-  const projects = props.projects.filter(p =>
-    p.tags.find(t => t._id === props.match.params.tagId)
+  const userProjects = props.projects.filter(
+    p => p.user._id === props.match.params.userId
   );
+  const user = props.users.find(u => u._id === props.match.params.userId);
 
-  const tag = props.tags.find(t => t._id === props.match.params.tagId);
-
-  if (!projects) {
+  if (!user) {
     return null;
   }
-  if (!tag) {
+
+  if (!userProjects) {
     return null;
   }
 
   return (
     <div className="container">
-      <div className="row titlePlist">#{tag.name}</div>
+      <div className="row titlePlist">
+        <Icon small>folder_shared</Icon> [ proyectos de {user.name} ]
+      </div>
       <div className="row flipRow">
-        {projects.map(p => (
-          <div className="col flipCol" key={p._id}>
+        {userProjects.map(project => (
+          <div className="col flipCol" key={project._id}>
             <Flippy
               flipOnHover={true}
               flipDirection="horizontal"
@@ -48,19 +50,19 @@ const TagsProjects: React.FC<
                   color: "white"
                 }}
               >
-                <p>{p.title}</p>
+                <p>{project.title}</p>
                 <div className="row userPlist">
                   <img
                     src={
                       "http://localhost:3000/images/avatars/" +
-                      p.user.avatar +
+                      project.user.avatar +
                       ".png"
                     }
                     className="imgPlist"
                     alt="user"
                   />
 
-                  <span className="userProject">por {p.user.name} </span>
+                  <span className="userProject">por {project.user.name} </span>
                 </div>
               </FrontSide>
               <BackSide
@@ -70,24 +72,25 @@ const TagsProjects: React.FC<
                   textAlign: "center"
                 }}
               >
-                <div className="row">{p.subtitle}</div>
+                <div className="row">{project.subtitle}</div>
                 <div className="row tagsP">
-                  {p.tags.map(tag => (
+                  {project.tags.map(tag => (
                     <div className="chip" key={tag._id}>
                       {tag.name}
                     </div>
                   ))}
                 </div>
+
                 <div className="row userInfo">
                   <Icon tiny>date_range</Icon>
-                  {new Date(p.created).toLocaleDateString()}
+                  {new Date(project.created).toLocaleDateString()}
                 </div>
 
                 <div className="row userInfo">
-                  <Icon tiny>thumb_up</Icon> {p.votes.length}
+                  <Icon tiny>thumb_up</Icon> {project.votes.length}
                 </div>
                 <div className="row moreInf">
-                  <Link to={"/projects/" + p._id}>
+                  <Link to={"/projects/" + project._id}>
                     <Button
                       className="moreButton"
                       floating
@@ -109,8 +112,8 @@ const TagsProjects: React.FC<
 };
 
 const mapStateToProps = (state: IGlobalState) => ({
-  tags: state.tags,
+  users: state.users,
   projects: state.projects
 });
 
-export default connect(mapStateToProps)(TagsProjects);
+export default connect(mapStateToProps)(UserProjects);

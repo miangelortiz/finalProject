@@ -13,7 +13,7 @@ const projectSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    votes: Number,
+    votes: new Array,
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'

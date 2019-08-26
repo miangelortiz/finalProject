@@ -51,8 +51,8 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
     }).then(response => {
       if (response.ok) {
         response.json().then((user: IUser) => {
-          props.regUser(user);
           props.history.push("/");
+          props.regUser(user);
         });
       } else {
         setError("Ya existe un usuario registrado con ese correo");
@@ -63,7 +63,7 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
   return (
     <span>
       <TextInput
-        noLayout="false"
+        noLayout
         email
         validate
         label="correo electrónico"
@@ -74,7 +74,7 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
       />
 
       <TextInput
-        noLayout="false"
+        noLayout
         text
         validate
         label="nombre"
@@ -83,19 +83,19 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
       />
 
       <TextInput
-        noLayout="false"
+        noLayout
         password
         validate
         label="contraseña"
         error="Debe tener 4 o más caracteres"
         success="¡Bien hecho!"
-        minlength="4"
+        minLength="4"
         value={passwordValue}
         onChange={passwordChange}
       />
 
       <Select
-      browserDefault
+        browserDefault
         className="icons"
         onChange={avatarChange}
         noLayout
@@ -107,27 +107,51 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         <option
           value="avatar-01"
           data-icon="http://localhost:3000/images/avatars/avatar-01.png"
-        >example 1</option>
+        >
+          Enérgico
+        </option>
         <option
           value="avatar-02"
           data-icon="http://localhost:3000/images/avatars/avatar-02.png"
-        >example 2</option>
+        >
+          Meditador
+        </option>
         <option
           value="avatar-03"
           data-icon="http://localhost:3000/images/avatars/avatar-03.png"
-        >example 3</option>
+        >
+          Productivo
+        </option>
         <option
           value="avatar-04"
           data-icon="http://localhost:3000/images/avatars/avatar-04.png"
-        >example 4</option>
+        >
+          Resitente
+        </option>
         <option
           value="avatar-05"
           data-icon="http://localhost:3000/images/avatars/avatar-05.png"
-        >example 5</option>
+        >
+          Entusiasta
+        </option>
         <option
           value="avatar-06"
           data-icon="http://localhost:3000/images/avatars/avatar-06.png"
-        >example 6</option>
+        >
+          Novedoso
+        </option>
+        <option
+          value="avatar-07"
+          data-icon="http://localhost:3000/images/avatars/avatar-07.png"
+        >
+          Decidido
+        </option>
+        <option
+          value="avatar-08"
+          data-icon="http://localhost:3000/images/avatars/avatar-08.png"
+        >
+          Entregado
+        </option>
       </Select>
 
       <Button

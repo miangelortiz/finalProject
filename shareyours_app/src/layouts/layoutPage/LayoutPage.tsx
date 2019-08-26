@@ -7,6 +7,7 @@ import { ITag } from "../../interfaces/tagInterface";
 import { connect } from "react-redux";
 import * as actions from "../../actions/actions";
 import { IUser } from "../../interfaces/userInterfaces";
+import { Route } from "react-router-dom";
 
 interface IPropsGlobal {
   setTags: (tags: ITag[]) => void;
@@ -46,15 +47,15 @@ const LayoutPage: React.FC<IPropsGlobal> = props => {
 
   return (
     <div>
-      <Navbar />
+      <Route component={Navbar} />
       <div className="row">
         <div className="col s12 contentCol">
-          <Content />
+        <Route component={Content} />
         </div>
       </div>
       <div className="row">
         <div className="col s12">
-          <Footer />
+        <Route component={Footer} />
         </div>
       </div>
     </div>

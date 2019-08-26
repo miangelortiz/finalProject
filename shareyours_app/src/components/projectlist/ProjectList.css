@@ -1,25 +1,62 @@
-.flipCol{
-    margin:30px;
-    
+.flipCol {
+  margin-bottom: 30px;
+}
+.flipRow {
+  padding-left: 80px;
+  padding-top: 20px;
 }
 
-.chip{
-    background-color: #083B66;
-    color:white;
-    font-size: 10px;
+.chip {
+  background-color: #083b66;
+  color: white;
+  font-size: 14px;
 }
 
-.flippy-front {
-    border-radius: 5%;
-}
-
+.flippy-front,
 .flippy-back {
-    border-radius: 5%;
-}
-a{
-    color:black;
+  border-radius: 5%;
 }
 
-.moreButton{
-    background-color: #083B66;
+a {
+  color: black;
 }
+
+.moreButton {
+  background-color: #083b66;
+}
+
+.imgPlist {
+  width: 80px;
+}
+
+.titlePlist {
+  font-size: 20px;
+  /* font-weight: bold; */
+  padding-left: 90px;
+}
+
+.userPlist {
+  font-size: 15px;
+  height: 100px;
+  width: 230px;
+}
+
+.col .row {
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-bottom: 1px;
+}
+
+.userInfo {
+  font-size: 15px;
+  /* padding-top: 4px */
+}
+
+.tagsP {
+  padding-top: 20px;
+}
+
+.moreInf {
+  padding-top: 20px;
+}
+

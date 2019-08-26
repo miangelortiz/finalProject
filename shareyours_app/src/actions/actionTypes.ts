@@ -3,7 +3,6 @@ import { IProject } from "../interfaces/projectInterfaces";
 import { ITag } from "../interfaces/tagInterface";
 import { IIdea } from "../interfaces/ideaInterface";
 
-
 //Token action types
 type TSetToken = {
   type: "SET_TOKEN";
@@ -24,6 +23,15 @@ type TSetUsers = {
 type TRegUser = {
   type: "REG_USER";
   user: IUser;
+};
+type TEditUser = {
+  type: "EDIT_USER";
+  user_id: string;
+  user: IUser;
+};
+type TRemoveUser = {
+  type: "REMOVE_USER";
+  user_id: string;
 };
 
 //Proyects action types
@@ -49,10 +57,10 @@ type TRemoveProject = {
 };
 
 type TUpdateVotes = {
-  type: "UPDATE_VOTES"
+  type: "UPDATE_VOTES";
   project_id: string;
   project: IProject;
-}
+};
 
 //Tags action types
 type TSetTags = {
@@ -76,12 +84,23 @@ type TRemoveIdea = {
   project_id: string;
 };
 
+type TEditIdea = {
+  type: "EDIT_IDEA";
+  idea_id: string;
+  idea: IIdea;
+};
 
+type TReset = {
+  type: "RESET";
+};
 export type TAction =
+  | TReset
   | TSetToken
   | TSetMyUser
   | TSetUsers
   | TRegUser
+  | TEditUser
+  | TRemoveUser
   | TSetProjects
   | TAddProject
   | TSetTags
@@ -90,5 +109,5 @@ export type TAction =
   | TsetIdeas
   | TAddIdea
   | TRemoveIdea
+  | TEditIdea
   | TUpdateVotes;
-  

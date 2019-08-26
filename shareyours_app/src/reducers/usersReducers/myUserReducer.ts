@@ -10,5 +10,8 @@ export const myUserReducer = (
   if (action.type === "SET_MY_USER") {
     return action.myUser;
   }
+  if (action.type === "RESET") {
+    return initialState;
+  }
   return state;
 };

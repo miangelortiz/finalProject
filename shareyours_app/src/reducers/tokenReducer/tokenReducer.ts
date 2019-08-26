@@ -8,5 +8,8 @@ export const tokenReducer = (
   if (action.type === "SET_TOKEN") {
     return action.newToken;
   }
+  if (action.type === "RESET") {
+    return initialState;
+  }
   return state;
 };

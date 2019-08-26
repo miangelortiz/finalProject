@@ -13,9 +13,9 @@ controller.listProjects = async (req, res) => {
     if (token) {
       const projects = await projectModel
         .find({})
-        .populate("user", { name: 1 })
+        .populate("user", { name: 1, avatar: 1 })
         .populate("tags", { name: 1 })
-        .populate("ideas");
+        .populate("ideas", { user: 1, project: 1 });
       res.send(projects);
     } else {
       res.sendStatus(401); //UNAUTHORIZED The request has not been applied because it lacks valid authentication credentials for the target resource.
@@ -36,7 +36,7 @@ controller.addProject = async (req, res) => {
         title: req.body.title,
         subtitle: req.body.subtitle,
         content: req.body.content,
-        votes: 0,
+        votes: [],
         created: new Date(),
         edited: new Date(),
         user: userId,
@@ -48,9 +48,9 @@ controller.addProject = async (req, res) => {
         } else {
           const new_project = await projectModel
             .findById({ _id: obj._id })
-            .populate("user", { name: 1 })
+            .populate("user", { name: 1, avatar: 1 })
             .populate("tags", { name: 1 })
-            .populate("ideas");
+            .populate("ideas", { user: 1, project: 1 });
           res.send(new_project);
         }
       });
@@ -59,7 +59,6 @@ controller.addProject = async (req, res) => {
     res.sendStatus(400);
   }
 };
-
 
 //EDIT PROJECT (if the project belongs to the user logged in)
 controller.editProject = async (req, res) => {
@@ -81,9 +80,9 @@ controller.editProject = async (req, res) => {
     }
     const editProject = await projectModel
       .findById({ _id: req.params.id })
-      .populate("user", { name: 1 })
+      .populate("user", { name: 1, avatar: 1 })
       .populate("tags", { name: 1 })
-      .populate("ideas");
+      .populate("ideas", { user: 1, project: 1 });
     res.send(editProject);
   } catch {
     res.sendStatus(400);
@@ -100,19 +99,18 @@ controller.updateProjectVotes = async (req, res) => {
         {
           votes: req.body.votes
         }
-      )
+      );
     }
     const updateVotes = await projectModel
       .findById({ _id: req.params.id })
-      .populate("user", { name: 1 })
+      .populate("user", { name: 1, avatar: 1 })
       .populate("tags", { name: 1 })
-      .populate("ideas");
+      .populate("ideas", { user: 1, project: 1 });
     res.send(updateVotes);
-  } catch{
-    res.sendStatus(400)
+  } catch {
+    res.sendStatus(400);
   }
-}
-
+};
 
 //DELETE USER PROJECT
 controller.delProject = async (req, res) => {
@@ -123,14 +121,13 @@ controller.delProject = async (req, res) => {
       await projectModel.findOneAndDelete({ _id: projectId }, (err, _obj) => {
         if (err) {
           res.sendStatus(404);
-
         }
       });
       await ideaModel.deleteMany({ project: projectId }, (err, _obj) => {
         if (err) {
           res.sendStatus(404);
         }
-      })
+      });
       res.sendStatus(200);
     }
   } catch {

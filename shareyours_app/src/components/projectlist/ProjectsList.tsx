@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./ProjectList.css";
-import { IMyUser } from "../../interfaces/userInterfaces";
+import { IMyUser, IUser } from "../../interfaces/userInterfaces";
 import * as actions from "../../actions/actions";
 import { IProject } from "../../interfaces/projectInterfaces";
 import { IGlobalState } from "../../reducers/reducers";
@@ -9,13 +9,13 @@ import { ITag } from "../../interfaces/tagInterface";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { IIdea } from "../../interfaces/ideaInterface";
 
-
 const { Flippy, FrontSide, BackSide } = require("react-flippy");
 const { Icon, Button } = require("react-materialize");
 
 interface IPropsGlobal {
   token: string;
   myUser: IMyUser;
+  users: IUser[];
   projects: IProject[];
   tags: ITag[];
   setProjects: (projects: IProject[]) => void;
@@ -55,20 +55,22 @@ const ProjectsList: React.FC<
     });
   };
 
-  useEffect(getProjects, [props.token]);
   useEffect(getIdeas, [props.token]);
+  useEffect(getProjects, [props.token]);
 
   return (
     <div className="container">
-      <div className="row ">
+      <div className="row titlePlist">
+        <Icon small>star</Icon> [ los tres más valorados ]
+      </div>
+      <div className="row flipRow ">
         {props.projects
-          .sort((p1, p2) => p2.votes - p1.votes)
+          .sort((p1, p2) => p2.votes.length - p1.votes.length)
           .slice(0, 3)
           .map(project => (
-            <div className="col s3 flipCol" key={project._id}>
+            <div className="col flipCol " key={project._id}>
               <Flippy
                 flipOnHover={true}
-                //flipOnClick={true}
                 flipDirection="horizontal"
                 style={{ width: "300px", height: "300px" }}
               >
@@ -80,7 +82,20 @@ const ProjectsList: React.FC<
                     color: "white"
                   }}
                 >
-                  <span>{project.title}</span>
+                  <p>{project.title}</p>
+                  <div className="row userPlist">
+                    <img
+                      src={
+                        "http://localhost:3000/images/avatars/" +
+                        project.user.avatar +
+                        ".png"
+                      }
+                      className="imgPlist"
+                      alt="user"
+                    />
+
+                    <span>por {project.user.name}</span>
+                  </div>
                 </FrontSide>
                 <BackSide
                   style={{
@@ -89,36 +104,35 @@ const ProjectsList: React.FC<
                     textAlign: "center"
                   }}
                 >
-                  <span> {project.subtitle}</span>
-                  <br />
-                  <br />
-                  <span>
+                  <div className="row">{project.subtitle}</div>
+                  <div className="row tagsP">
                     {project.tags.map(tag => (
-                      <div className="chip">{tag.name}</div>
+                      <div className="chip" key={tag._id}>
+                        {tag.name}
+                      </div>
                     ))}
-                  </span>
-                  <br />
-                  <span>{new Date(project.created).toLocaleDateString()}</span>
-                  <br />
-                  <span>
-                    <Icon tiny>favorite_border</Icon>
-                    {project.votes}
-                  </span>
-                  <br />
-                  <span>proyecto creado por </span>
-                  {project.user.name}
-                  <Link to={"/projects/" + project._id}>
-                     <Button
-                          className="moreButton"
-                          floating
-                          node="a"
-                          waves="light"
-                          large
-                          icon="zoom_in"
-                          tooltip="Entra, vota y aporta"
-                          tooltipoptions={{ position: "bottom" }}
-                        />
-                  </Link>
+                  </div>
+                  <div className="row userInfo">
+                    <Icon tiny>date_range</Icon>
+                    {new Date(project.created).toLocaleDateString()}
+                  </div>
+
+                  <div className="row userInfo">
+                    <Icon tiny>thumb_up</Icon> {project.votes.length}
+                  </div>
+                  <div className="row moreInf">
+                    <Link to={"/projects/" + project._id}>
+                      <Button
+                        className="moreButton"
+                        floating
+                        waves="light"
+                        medium
+                        icon="zoom_in"
+                        tooltip="Entra, vota y aporta"
+                        tooltipoptions={{ position: "bottom" }}
+                      />
+                    </Link>
+                  </div>
                 </BackSide>
               </Flippy>
             </div>
@@ -130,6 +144,7 @@ const ProjectsList: React.FC<
 const mapStateToProps = (state: IGlobalState) => ({
   token: state.token,
   myUser: state.myUser,
+  users: state.users,
   tags: state.tags,
   projects: state.projects
 });

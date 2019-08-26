@@ -1,4 +1,5 @@
 import React from "react";
+import "./AddProject.css";
 import { IMyUser } from "../../interfaces/userInterfaces";
 import * as actions from "../../actions/actions";
 import { IProject } from "../../interfaces/projectInterfaces";
@@ -7,7 +8,13 @@ import { connect } from "react-redux";
 import { ITag } from "../../interfaces/tagInterface";
 import { RouteComponentProps } from "react-router-dom";
 
-const { TextInput, Textarea, Select, Button } = require("react-materialize");
+const {
+  TextInput,
+  Textarea,
+  Select,
+  Button,
+  Icon
+} = require("react-materialize");
 
 interface IPropsGlobal {
   token: string;
@@ -69,6 +76,9 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
 
   return (
     <div className="container">
+      <div className="row  ">
+        <Icon small>create_new_folder</Icon> [ crea un proyecto ]
+      </div>
       <div className="row">
         <div className="col s12 m5">
           <div className="card-panel ">
@@ -78,7 +88,9 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
                   noLayout
                   text
                   validate
-                  label="Nombre App"
+                  maxLength="30"
+                  data-length={30}
+                  label="Nombre App (max. 30 caracteres)"
                   value={titleValue}
                   onChange={titleChange}
                 />
@@ -90,7 +102,9 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
                   noLayout
                   text
                   validate
-                  label="Breve descripcion"
+                  maxLength="80"
+                  data-length={80}
+                  label="Breve descripcion (máx. 80 caracteres)"
                   value={subTitleValue}
                   onChange={subTitleChange}
                 />
@@ -100,8 +114,9 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
               <div className="col s12">
                 <Textarea
                   noLayout
-                  label="Describe tu proyecto"
+                  label="Describe tu proyecto (máx. 1000 caracteres)"
                   data-length={1000}
+                  maxLength="1000"
                   value={contentValue}
                   onChange={contentChange}
                 />
@@ -118,25 +133,29 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
                   <option value="" disabled>
                     Elige una categoria para tu proyecto
                   </option>
-                  {props.tags.map(t => (
+                  {props.tags.sort().map(t => (
                     <option key={t._id} value={t._id}>
                       {t.name}
                     </option>
                   ))}
                 </Select>
-                <div className="row">
-                  <div className="col s12">
+                <div className="row validateB">
+                  <div className="col s2">
                     <Button
                       className="teal lighten-2"
                       floating
                       node="a"
                       waves="light"
-                      large
+                      
                       icon="check"
                       onClick={addNewProject}
                     />
-                    <strong> ...comparte tu proyecto!!</strong>
-                  </div>
+                    </div>
+                    <div className="col s10 validateP">
+                    <span > ...comparte tu proyecto!!</span>
+                    </div>
+                    
+                  
                 </div>
               </div>
             </div>

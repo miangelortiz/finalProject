@@ -1,4 +1,5 @@
 const ideaModel = require("../models/ideaModel");
+const projectModel = require("../models/projectModel");
 const jwt = require("jsonwebtoken");
 
 const controller = {};
@@ -35,14 +36,38 @@ controller.addIdea = async (req, res) => {
           res.sendStatus(405);
         } else {
           const new_ideas = await ideaModel
-          .findById({_id: obj._id})
-          .populate("user", { name: 1 })
-          .populate("project", { title: 1 });
-        res.send(new_ideas);
+            .findById({ _id: obj._id })
+            .populate("user", { name: 1 })
+            .populate("project", { title: 1 });
+          res.send(new_ideas);
         }
       });
     }
   } catch {
+    res.sendStatus(400);
+  }
+};
+
+//EDIT IDEA (by user log)
+controller.editIdea = async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  try {
+    if (token) {
+      await ideaModel.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          ...(req.body.content !== null && { content: req.body.content }),
+          created: new Date()
+        }
+      );
+    }
+    const updateIdea = await ideaModel
+      .findById({ _id: req.params.id })
+      .populate("user", { name: 1 })
+      .populate("project", { title: 1 });
+    res.send(updateIdea);
+  } catch (e) {
+    console.log(e);
     res.sendStatus(400);
   }
 };

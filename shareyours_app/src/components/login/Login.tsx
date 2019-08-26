@@ -58,7 +58,7 @@ const Login: React.FC<IProps & IPropsGlobal & RouteComponentProps> = props => {
   return (
     <span>
       <TextInput
-        noLayout="false"
+        noLayout
         email
         validate
         label="correo electrónico"
@@ -69,13 +69,13 @@ const Login: React.FC<IProps & IPropsGlobal & RouteComponentProps> = props => {
       />
 
       <TextInput
-        noLayout="false"
+        noLayout
         password
         validate
         label="contraseña"
         error="Debe tener 4 o más caracteres"
         success="¡Bien hecho!"
-        minlength="4"
+        minLength="4"
         value={passwordValue}
         onChange={passwordChange}
       />

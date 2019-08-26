@@ -1,37 +1,40 @@
 import React from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps, Route } from "react-router-dom";
 import { IMyUser, IUser } from "../../interfaces/userInterfaces";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
 import * as actions from "../../actions/actions";
+import { IProject } from "../../interfaces/projectInterfaces";
+import Notifications from "../notifications/Notifications";
 
 const {
   Navbar,
-  NavItem,
   Dropdown,
   Divider,
-  Chip
+  Chip,
+  Button,
+  Modal
 } = require("react-materialize");
 
 interface IPropsGlobal {
   myUser: IMyUser;
   users: IUser[];
-  setToken: (token: string) => void;  
+  projects: IProject[];
+  Reset: () => void;
 }
 
-const MyNavbar: React.FC<IPropsGlobal> = props => {
-  const userLog= props.users.find(u=>u._id===props.myUser.id);
+const MyNavbar: React.FC<IPropsGlobal & RouteComponentProps> = props => {
+  const userLog = props.users.find(u => u._id === props.myUser.id);
 
   const logOut = () => {
+    props.Reset();
     localStorage.removeItem("token");
-    props.setToken("");
   };
 
-  if(!userLog){
-    return null
+  if (!userLog) {
+    return null;
   }
-
   return (
     <Navbar
       brand={<img className="logoImg" src="/images/logo.png" alt="logo" />}
@@ -39,47 +42,80 @@ const MyNavbar: React.FC<IPropsGlobal> = props => {
       alignLinks="right"
       className="navBar"
     >
-      <NavItem>
-        <Link to={"/projects/"} className="navLink">
-          proyectos
-        </Link>
-      </NavItem>
+      <Button
+        flat
+        waves="light"
+        className="navLink"
+        onClick={() => props.history.push("/allprojects")}
+      >
+        #brainstorming
+      </Button>
+      <Button
+        flat
+        waves="light"
+        className="navLink"
+        onClick={() => props.history.push("/projects")}
+      >
+        #mas valorados
+      </Button>
+      <Button
+        flat
+        waves="light"
+        className="navLink"
+        onClick={() => props.history.push("/allprojects")}
+      >
+        #proyectos
+      </Button>
 
-      <NavItem className="navLink">
+      <div>
         <Dropdown
-          className="userBut "
           trigger={
-            <Chip>
+            <Chip className="userBut ">
               <img
-                src={"http://localhost:3000/images/avatars/"+userLog.avatar +".png"}
+                src={
+                  "http://localhost:3000/images/avatars/" +
+                  userLog.avatar +
+                  ".png"
+                }
                 className="responsive-img"
                 alt="user"
               />
-              {props.myUser.name}
+              {userLog.name}
             </Chip>
-        
           }
         >
-          <a href="">mi perfil</a>
-          <Divider />
-          <Link to={"/projects/user/" + props.myUser.id}> mis proyectos</Link>
+          <Link to={"/user/" + props.myUser.id}> mi perfil</Link>
           <Divider />
           <Link to={"/projects/add/"}>¡crea un proyecto!</Link>
           <Divider />
+          <Link to={"/projects/user/" + props.myUser.id}> mis proyectos</Link>
+          <Divider />
+          <Modal
+            header="[ mis votos ]"
+            className="modalNav"
+            options={{ dismissible: false }}
+            trigger={<Link to={"/user/votes/" + props.myUser.id}> votos</Link>}
+          >
+            <p>
+              <Route component={Notifications} />
+            </p>
+          </Modal>
+          <Divider />
           <a onClick={logOut}>cerrar sesión</a>
         </Dropdown>
-      </NavItem>
+      </div>
     </Navbar>
   );
 };
 
 const mapStateToProps = (state: IGlobalState) => ({
   myUser: state.myUser,
-  users: state.users
+  users: state.users,
+  projects: state.projects
 });
 
 const mapDispatchToProps = {
-  setToken: actions.setToken,
+  Reset: actions.Reset
 };
 
 export default connect(

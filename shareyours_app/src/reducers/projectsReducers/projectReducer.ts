@@ -33,5 +33,8 @@ export const projectReducer = (
     projects[index] = action.project;
     return [...projects];
   }
+  if (action.type === "RESET") {
+    return initialState;
+  }
   return state;
 };

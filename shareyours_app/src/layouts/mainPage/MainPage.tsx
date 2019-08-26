@@ -7,7 +7,7 @@ import * as actions from "../../actions/actions";
 import { connect } from "react-redux";
 
 interface IPropsGlobal {
-  setToken: (token: string) => void;  
+  setToken: (token: string) => void;
 }
 const { Collapsible, CollapsibleItem, Icon } = require("react-materialize");
 
@@ -21,8 +21,8 @@ const Main: React.FC<IPropsGlobal> = () => {
         <div className="col s6">
           <div className="row">
             <div className="col s12 m8">
-              <div className="card-panel teal lighten-3 ">
-                <strong>¡No esperes más! ¡Aporta tu proyecto e ideas!</strong>
+              <div className="card-panel teal lighten-3 mainTitle">
+                ¡No esperes más! ¡Aporta tu proyecto e ideas!
               </div>
               <Collapsible popout>
                 <CollapsibleItem
@@ -56,4 +56,7 @@ const Main: React.FC<IPropsGlobal> = () => {
 const mapDispatchToProps = {
   setToken: actions.setToken
 };
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(
+  null,
+  mapDispatchToProps
+)(Main);

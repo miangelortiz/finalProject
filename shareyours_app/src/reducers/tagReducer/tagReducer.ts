@@ -11,5 +11,8 @@ export const tagsReducer=(
     if(action.type==="SET_TAGS"){
         return action.tags;
     }
+    if (action.type === "RESET") {
+        return initialState;
+      }
     return state;
 }

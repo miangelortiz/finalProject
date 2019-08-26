@@ -1,0 +1,33 @@
+.showPuser {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.userP {
+  margin-bottom: 10px;
+}
+
+.showIuser {
+  font-size: 17px;
+  text-align: justify;
+  
+}
+.showDuser {
+  font-weight: bold;
+  font-size: 16px;
+  color: #083b66;
+}
+
+.titleProject{
+    font-size: 30px;
+    color: #083b66;
+}
+
+.contentProject{
+    font-size: 18px;
+    text-align: justify;
+}
+
+.modalShow{
+  width: 600px;
+}

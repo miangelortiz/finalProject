@@ -1,40 +1,29 @@
 import React from "react";
-import { ITag } from "../../interfaces/tagInterface";
 import { IProject } from "../../interfaces/projectInterfaces";
-import { RouteComponentProps, Link } from "react-router-dom";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
+import { RouteComponentProps, Link } from "react-router-dom";
+import { IUser } from "../../interfaces/userInterfaces";
 
 const { Flippy, FrontSide, BackSide } = require("react-flippy");
 const { Icon, Button } = require("react-materialize");
 
 interface IPropsGlobal {
-  tags: ITag[];
   projects: IProject[];
+  users: IUser[];
 }
 
-const TagsProjects: React.FC<
-  IPropsGlobal & RouteComponentProps<{ tagId: string }>
+const AllProjects: React.FC<
+  IPropsGlobal & RouteComponentProps<any>
 > = props => {
-  const projects = props.projects.filter(p =>
-    p.tags.find(t => t._id === props.match.params.tagId)
-  );
-
-  const tag = props.tags.find(t => t._id === props.match.params.tagId);
-
-  if (!projects) {
-    return null;
-  }
-  if (!tag) {
-    return null;
-  }
-
   return (
     <div className="container">
-      <div className="row titlePlist">#{tag.name}</div>
+      <div className="row titlePlist">
+        <Icon small>visibility</Icon> [ proyectos -shareYours- ]
+      </div>
       <div className="row flipRow">
-        {projects.map(p => (
-          <div className="col flipCol" key={p._id}>
+        {props.projects.map(project => (
+          <div className="col flipCol" key={project._id}>
             <Flippy
               flipOnHover={true}
               flipDirection="horizontal"
@@ -48,19 +37,19 @@ const TagsProjects: React.FC<
                   color: "white"
                 }}
               >
-                <p>{p.title}</p>
+                <p>{project.title}</p>
                 <div className="row userPlist">
                   <img
                     src={
                       "http://localhost:3000/images/avatars/" +
-                      p.user.avatar +
+                      project.user.avatar +
                       ".png"
                     }
                     className="imgPlist"
                     alt="user"
                   />
 
-                  <span className="userProject">por {p.user.name} </span>
+                  <span className="userProject">por {project.user.name} </span>
                 </div>
               </FrontSide>
               <BackSide
@@ -70,9 +59,9 @@ const TagsProjects: React.FC<
                   textAlign: "center"
                 }}
               >
-                <div className="row">{p.subtitle}</div>
+                <div className="row">{project.subtitle}</div>
                 <div className="row tagsP">
-                  {p.tags.map(tag => (
+                  {project.tags.map(tag => (
                     <div className="chip" key={tag._id}>
                       {tag.name}
                     </div>
@@ -80,14 +69,15 @@ const TagsProjects: React.FC<
                 </div>
                 <div className="row userInfo">
                   <Icon tiny>date_range</Icon>
-                  {new Date(p.created).toLocaleDateString()}
+                  {new Date(project.created).toLocaleDateString()}
                 </div>
 
                 <div className="row userInfo">
-                  <Icon tiny>thumb_up</Icon> {p.votes.length}
+                  <Icon tiny>thumb_up</Icon> {project.votes.length}
                 </div>
+
                 <div className="row moreInf">
-                  <Link to={"/projects/" + p._id}>
+                  <Link to={"/projects/" + project._id}>
                     <Button
                       className="moreButton"
                       floating
@@ -109,8 +99,8 @@ const TagsProjects: React.FC<
 };
 
 const mapStateToProps = (state: IGlobalState) => ({
-  tags: state.tags,
-  projects: state.projects
+  projects: state.projects,
+  users: state.users
 });
 
-export default connect(mapStateToProps)(TagsProjects);
+export default connect(mapStateToProps)(AllProjects);

@@ -7,7 +7,14 @@ import { RouteComponentProps } from "react-router-dom";
 import { ITag } from "../../interfaces/tagInterface";
 import * as actions from "../../actions/actions";
 
-const { TextInput, Textarea, Select, Button } = require("react-materialize");
+const {
+  TextInput,
+  Textarea,
+  Select,
+  Button,
+  Icon,
+  Modal
+} = require("react-materialize");
 
 interface IPropsGlobal {
   token: string;
@@ -36,7 +43,9 @@ const EditMyProject: React.FC<
   const [contentValue, setContentValue] = React.useState<string>(
     project ? project.content : ""
   );
-  const [tags, setTagsValue] = React.useState<string[]>([]);
+  const [tags, setTagsValue] = React.useState<string[]>(
+    project!.tags.map(t => t._id)
+  );
 
   const titleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitleValue(event.currentTarget.value);
@@ -49,13 +58,12 @@ const EditMyProject: React.FC<
   };
   const tagsChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const options = event.currentTarget.options;
-    const selectedOptions = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedOptions.push(options[i].value);
-      }
-    }
-    setTagsValue(selectedOptions);
+
+    setTagsValue(
+      Array.from(options)
+        .filter(o => o.selected)
+        .map(o => o.value)
+    );
   };
 
   //UPDATE PROJECT
@@ -93,9 +101,9 @@ const EditMyProject: React.FC<
       }
     }).then(resp => {
       if (resp.ok) {
+        props.history.push(`/projects/user/${props.myUser.id}`);
         props.removeProject(project_id);
         props.removeIdea(project_id);
-        props.history.push(`/projects/user/${props.myUser.id}`);
       }
     });
   };
@@ -106,6 +114,11 @@ const EditMyProject: React.FC<
 
   return (
     <div className="container">
+      <div className="row  ">
+        <div className="col">
+          <Icon small>assignment_late</Icon> [ modifica o elimina tu proyecto ]
+        </div>
+      </div>
       <div className="row">
         <div className="col s12 m5">
           <div className="card-panel ">
@@ -115,6 +128,8 @@ const EditMyProject: React.FC<
                   noLayout
                   text
                   validate
+                  maxLength="35"
+                  data-length={35}
                   label="Nombre de mi proyecto"
                   value={titleValue}
                   onChange={titleChange}
@@ -127,6 +142,8 @@ const EditMyProject: React.FC<
                   noLayout
                   text
                   validate
+                  maxLength="80"
+                  data-length={80}
                   label="Breve descripcion"
                   value={subTitleValue}
                   onChange={subTitleChange}
@@ -144,19 +161,19 @@ const EditMyProject: React.FC<
                 />
               </div>
             </div>
-            {/* <div className="row">
-              <div className="col s6">
-                <span>A {project.} les gusta mi proyecto</span>
+            <div className="row">
+              <div className="col s12">
+                <span className="userInfo">A {project.votes.length} usuarios les gusta mi proyecto</span>
               </div>
-            </div> */}
+            </div>
             <div className="row">
               <div className="col s12">
                 <Select
                   multiple
                   onChange={tagsChange}
-                  noLayout="false"
+                  noLayout
                   options={{ dropDownOptions: { closeOnClick: false } }}
-                  value={project.tags.map(t => t._id)}
+                  value={tags.map(t => t)}
                 >
                   {props.tags.map(t => (
                     <option key={t._id} value={t._id}>
@@ -171,23 +188,50 @@ const EditMyProject: React.FC<
                       floating
                       node="a"
                       waves="light"
-                      large
+                      small
                       icon="edit"
+                      tooltip="Guarda los cambios"
+                      tooltipoptions={{ position: "bottom" }}
                       onClick={() => updateMyProject(project._id, project)}
                     />
                   </div>
                   <div className="col s6">
-                    <Button
+                    <Modal
+                      header="Vas a eliminar tu proyecto, se eliminarán también las ideas aportadas por otros usuarios."
+                      className="modalShow"
+                      options={{ dismissible: false }}
+                      trigger={
+                        <Button
+                          className="teal lighten-2"
+                          floating
+                          small
+                          waves="light"
+                          icon="delete_forever"
+                          tooltip="Eliminar el  proyecto"
+                          tooltipoptions={{ position: "bottom" }}
+                        />
+                      }
+                    >
+                      <span>
+                        <Button
+                          className="red"
+                          onClick={() => deleteProject(project._id)}
+                        >
+                          ¿Estás seguro?
+                        </Button>{" "}
+                      </span>
+                    </Modal>
+                    {/* <Button
                       className="teal lighten-2"
                       floating
                       node="a"
                       waves="light"
-                      large
+                      small
                       icon="delete_forever"
                       tooltip="Se eliminarán también las ideas aportadas a tu proyecto"
-                      tooltipOptions={{ position: "bottom" }}
+                      tooltipoptions={{ position: "bottom" }}
                       onClick={() => deleteProject(project._id)}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>

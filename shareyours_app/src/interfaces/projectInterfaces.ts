@@ -5,7 +5,8 @@ export interface IProject {
   content: string;
   created: string;
   edited: string;
-  votes: number;
-  user: { _id:string, name: string };
-  tags: [{ _id:string, name: string }];
+  votes: string[];
+  user: { _id: string; name: string; avatar: string };
+  tags: [{ _id: string; name: string }];
+  ideas: [{ _id: string; user: string; project: string }];
 }
