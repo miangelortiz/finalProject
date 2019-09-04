@@ -1,5 +1,4 @@
 const ideaModel = require("../models/ideaModel");
-const projectModel = require("../models/projectModel");
 const jwt = require("jsonwebtoken");
 
 const controller = {};
@@ -66,8 +65,24 @@ controller.editIdea = async (req, res) => {
       .populate("user", { name: 1 })
       .populate("project", { title: 1 });
     res.send(updateIdea);
-  } catch (e) {
-    console.log(e);
+  } catch {
+    res.sendStatus(400);
+  }
+};
+
+//DELETE IDEA
+controller.delIdea = async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  try {
+    if (token) {
+      await ideaModel.findOneAndDelete({ _id: req.params.id }, (err, obj) => {
+        if (err) {
+          res.sendStatus(404);
+        }
+      });
+      res.sendStatus(200);
+    }
+  } catch {
     res.sendStatus(400);
   }
 };

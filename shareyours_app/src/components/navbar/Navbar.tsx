@@ -37,16 +37,27 @@ const MyNavbar: React.FC<IPropsGlobal & RouteComponentProps> = props => {
   }
   return (
     <Navbar
-      brand={<img className="logoImg" src="/images/logo.png" alt="logo" />}
+      brand={<img className="logoImg" src="/images/logo2.png" alt="logo" />}
       alignBrand="left"
       alignLinks="right"
       className="navBar"
+      fixed
     >
+      {props.myUser.isAdmin && (
+        <Button
+          flat
+          waves="light"
+          className="navLink"
+          onClick={() => props.history.push("/admin")}
+        >
+         [ ADMIN ]
+        </Button>
+      )}
       <Button
         flat
         waves="light"
         className="navLink"
-        onClick={() => props.history.push("/allprojects")}
+        onClick={() => props.history.push("/brainstorming")}
       >
         #brainstorming
       </Button>
@@ -54,7 +65,7 @@ const MyNavbar: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         flat
         waves="light"
         className="navLink"
-        onClick={() => props.history.push("/projects")}
+        onClick={() => props.history.push("/topProjects")}
       >
         #mas valorados
       </Button>
@@ -62,7 +73,7 @@ const MyNavbar: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         flat
         waves="light"
         className="navLink"
-        onClick={() => props.history.push("/allprojects")}
+        onClick={() => props.history.push("/projects")}
       >
         #proyectos
       </Button>

@@ -1,0 +1,101 @@
+.brainTitle {
+  font-weight: bold;
+  font-size: 40px;
+  text-align: center;
+}
+
+.brainstorm {
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.ulPosit,
+.liPosit {
+  list-style: none;
+}
+
+.ulPosit {
+  overflow: hidden;
+  padding: 1em;
+}
+
+.ulPosit .liPosit {
+  margin: 1em;
+  float: left;
+}
+
+.ulPosit .liPosit .pPosit {
+  font-family: "Gloria Hallelujah", cursive;
+  font-size: 130%;
+}
+
+/* Inclinación de las notas */
+.ulPosit .liPosit .aPosit {
+  -webkit-transform: rotate(-6deg);
+}
+
+/* con nth-child(posicion de elemento) damos aleatoriedad a las notas 
+     con un color y rotación distintos*/
+.ulPosit .liPosit:nth-child(even) .aPosit {
+  -webkit-transform: rotate(4deg);
+  position: relative;
+  top: 5px;
+  background: #cfc;
+}
+.ulPosit .liPosit:nth-child(3n) .aPosit {
+  -webkit-transform: rotate(-3deg);
+  position: relative;
+  top: -5px;
+  background: #ccf;
+}
+.ulPosit .liPosit:nth-child(6n) .aPosit {
+  -webkit-transform: rotate(5deg);
+  position: relative;
+  top: -10px;
+  /* background:#8c9eff */
+}
+
+/* Resaltado de las notas con sombreado y efecto "zoom" al utilzar la propiedad "hover" */
+/* Ponemos z-index para que quede sobre las otras notas */
+.ulPosit .liPosit .aPosit:hover,
+.ulPosit .liPosit .aPosit:focus {
+  box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
+  -webkit-transform: scale(1.25);
+  position: relative;
+  z-index: 5;
+}
+
+/* Transición del título cuando acercamos la nota */
+.ulPosit .liPosit .aPosit {
+  text-decoration: none;
+  color: #000;
+  background: #ffc;
+  /* display: block; */
+  height: 15em;
+  width: 15em;
+  padding: 1em;
+  box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+  -webkit-transition: -webkit-transform 0.15s linear;
+}
+
+.spanPosit {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.spanPVotes2 {
+  color: black;
+  font-weight: bold;
+}
+
+.spanInfoBrain {
+  font-size: 20px;
+}
+
+.aPosit {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+

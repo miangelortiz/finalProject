@@ -21,10 +21,10 @@ controller.auth = (req, res) => {
           {
             id: result[0]._id,
             email: result[0].email,
-            name: result[0].name
+            name: result[0].name,
+            isAdmin: result[0].isAdmin ? true : false
           },
-          "mysecret",
-          // { expiresIn: 3600 }
+          "mysecret"
         );
         res.send(token);
       } else {
@@ -108,22 +108,22 @@ controller.delUser = async (req, res) => {
         if (err) {
           res.sendStatus(404);
         }
-      })
+      });
       await projectModel.deleteMany({ user: userId }, (err, _obj) => {
         if (err) {
           res.sendStatus(404);
         }
-      })
+      });
       await ideaModel.deleteMany({ user: userId }, (err, _obj) => {
         if (err) {
           res.sendStatus(404);
         }
-      })
+      });
       res.sendStatus(200);
     }
-  } catch{
+  } catch {
     res.sendStatus(400);
   }
-}
+};
 
 module.exports = controller;

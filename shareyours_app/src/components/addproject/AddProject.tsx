@@ -76,11 +76,11 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
 
   return (
     <div className="container">
-      <div className="row  ">
-        <Icon small>create_new_folder</Icon> [ crea un proyecto ]
+      <div className="row addTitle ">
+        <Icon small>add</Icon> [ crea un proyecto ]
       </div>
-      <div className="row">
-        <div className="col s12 m5">
+      <div className="row ">
+        <div className="col s4 offset-s4 ">
           <div className="card-panel ">
             <div className="row">
               <div className="col s12">
@@ -144,18 +144,15 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
                     <Button
                       className="teal lighten-2"
                       floating
-                      node="a"
                       waves="light"
-                      
+                      small
                       icon="check"
                       onClick={addNewProject}
                     />
-                    </div>
-                    <div className="col s10 validateP">
-                    <span > ...comparte tu proyecto!!</span>
-                    </div>
-                    
-                  
+                  </div>
+                  <div className="col s10 validateP">
+                    <span> ...comparte tu proyecto!!</span>
+                  </div>
                 </div>
               </div>
             </div>

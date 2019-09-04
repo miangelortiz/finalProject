@@ -10,7 +10,6 @@
 .showIuser {
   font-size: 17px;
   text-align: justify;
-  
 }
 .showDuser {
   font-weight: bold;
@@ -18,16 +17,24 @@
   color: #083b66;
 }
 
-.titleProject{
-    font-size: 30px;
-    color: #083b66;
+.titleProject {
+  font-size: 30px;
+  color: #083b66;
 }
 
-.contentProject{
-    font-size: 18px;
-    text-align: justify;
+.contentProject {
+  font-size: 18px;
+  text-align: justify;
 }
 
-.modalShow{
+.modalShow {
   width: 600px;
+}
+
+.delIdea{
+  font-size: 15px;
+  color: #083b66;
+  font-weight: bold;
+  text-transform: lowercase;
+  font-family: 'Source Sans Pro', sans-serif;
 }

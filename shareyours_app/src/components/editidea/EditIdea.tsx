@@ -4,24 +4,24 @@ import { IIdea } from "../../interfaces/ideaInterface";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
 import * as actions from "../../actions/actions";
-import { RouteComponentProps } from "react-router-dom";
 
 const { Textarea, Button } = require("react-materialize");
+
+interface IProps {
+  ideaId: string;
+}
 
 interface IPropsGlobal {
   myUser: IMyUser;
   token: string;
   ideas: IIdea[];
   editIdea: (idea_id: string, idea: IIdea) => void;
+  removeOneIdea: (idea_id: string) => void;
 }
 
-const EditIdea: React.FC<
-  IPropsGlobal & RouteComponentProps<{ ideaID: string }>
-> = props => {
-const ideaID=props.match.params.ideaID
-  const myidea = props.ideas.find(i => i._id === ideaID);
-  console.log(myidea)
- 
+const EditIdea: React.FC<IProps & IPropsGlobal> = props => {
+  const ideaId = props.ideaId;
+  const myidea = props.ideas.find(i => i._id === ideaId);
 
   const [contentValue, setContentValue] = React.useState<string>(
     myidea ? myidea.content : ""
@@ -30,11 +30,13 @@ const ideaID=props.match.params.ideaID
     setContentValue(event.currentTarget.value);
   };
 
- 
+  if (!myidea) {
+    return null;
+  }
 
-  //UDATE IDEA
-  const updateIdea = (idea_id: string, idea: IIdea) => {
-    fetch("http://localhost:3000/api/idea/edit/" + idea._id, {
+  //UPDATE Idea by log user
+  const updateIdea = (idea_id: string, myidea: IIdea) => {
+    fetch("http://localhost:3000/api/idea/edit/" + ideaId, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -46,16 +48,25 @@ const ideaID=props.match.params.ideaID
     }).then(resp => {
       if (resp.ok) {
         resp.json().then((i: IIdea) => {
-          props.history.push(`/projects/${i.project._id}`);
-          props.editIdea(idea_id, i); 
+          props.editIdea(idea_id, i);
         });
       }
     });
   };
 
-  if (!myidea) {
-    return null;
-  }
+  const delIdea = (idea_id: string) => {
+    fetch("http://localhost:3000/api/ideas/delete/" + ideaId, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + props.token
+      }
+    }).then(resp => {
+      if (resp.ok) {
+        props.removeOneIdea(idea_id);
+      }
+    });
+  };
 
   return (
     <div className="card-panel ">
@@ -71,16 +82,34 @@ const ideaID=props.match.params.ideaID
         </div>
       </div>
       <div className="row">
-        <div className="col s12">
+        <div className="col s6">
           <Button
             className="teal lighten-2"
             tooltip="Actualizar"
-            tooltipoptions={{ position: "right" }}
+            tooltipOptions={{ position: "right" }}
             floating
             waves="light"
             small
             icon="edit"
-            onClick={() => updateIdea(myidea._id, myidea)}
+            onClick={() => {
+              setTimeout(() => {
+                const a: any = document.getElementsByClassName("modal-close");
+                a[a.length - 1].click();
+              }, 10);
+              updateIdea(ideaId, myidea);
+            }}
+          />
+        </div>
+        <div className="col s6">
+          <Button
+            className="red lighten-1"
+            tooltip="Eliminar"
+            tooltipOptions={{ position: "right" }}
+            floating
+            waves="light"
+            small
+            icon="delete_forever"
+            onClick={() => delIdea(myidea._id)}
           />
         </div>
       </div>
@@ -95,7 +124,8 @@ const mapStateToProps = (state: IGlobalState) => ({
 });
 
 const mapDispatchToProps = {
-  editIdea: actions.editIdea
+  editIdea: actions.editIdea,
+  removeOneIdea: actions.removeOneIdea
 };
 
 export default connect(

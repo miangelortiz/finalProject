@@ -1,4 +1,5 @@
 import React from "react";
+import "./EditMyProject.css";
 import { IMyUser } from "../../interfaces/userInterfaces";
 import { IProject } from "../../interfaces/projectInterfaces";
 import { IGlobalState } from "../../reducers/reducers";
@@ -114,13 +115,11 @@ const EditMyProject: React.FC<
 
   return (
     <div className="container">
-      <div className="row  ">
-        <div className="col">
-          <Icon small>assignment_late</Icon> [ modifica o elimina tu proyecto ]
-        </div>
+      <div className="row editTitle ">
+        <Icon small>priority_high</Icon> [ modifica o elimina tu proyecto ]
       </div>
-      <div className="row">
-        <div className="col s12 m5">
+      <div className="row ">
+        <div className="col s4 offset-s4">
           <div className="card-panel ">
             <div className="row">
               <div className="col s12">
@@ -163,7 +162,9 @@ const EditMyProject: React.FC<
             </div>
             <div className="row">
               <div className="col s12">
-                <span className="userInfo">A {project.votes.length} usuarios les gusta mi proyecto</span>
+                <span className="editVotes">
+                  A {project.votes.length} usuarios les gusta mi proyecto
+                </span>
               </div>
             </div>
             <div className="row">
@@ -202,7 +203,7 @@ const EditMyProject: React.FC<
                       options={{ dismissible: false }}
                       trigger={
                         <Button
-                          className="teal lighten-2"
+                          className="red lighten-1"
                           floating
                           small
                           waves="light"
@@ -214,24 +215,13 @@ const EditMyProject: React.FC<
                     >
                       <span>
                         <Button
-                          className="red"
+                          className="red lighten-1"
                           onClick={() => deleteProject(project._id)}
                         >
                           ¿Estás seguro?
-                        </Button>{" "}
+                        </Button>
                       </span>
                     </Modal>
-                    {/* <Button
-                      className="teal lighten-2"
-                      floating
-                      node="a"
-                      waves="light"
-                      small
-                      icon="delete_forever"
-                      tooltip="Se eliminarán también las ideas aportadas a tu proyecto"
-                      tooltipoptions={{ position: "bottom" }}
-                      onClick={() => deleteProject(project._id)}
-                    /> */}
                   </div>
                 </div>
               </div>

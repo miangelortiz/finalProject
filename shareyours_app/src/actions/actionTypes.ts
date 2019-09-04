@@ -2,6 +2,7 @@ import { IUser, IMyUser } from "../interfaces/userInterfaces";
 import { IProject } from "../interfaces/projectInterfaces";
 import { ITag } from "../interfaces/tagInterface";
 import { IIdea } from "../interfaces/ideaInterface";
+import { IBrain, IBsIdea } from "../interfaces/brainInterface";
 
 //Token action types
 type TSetToken = {
@@ -68,6 +69,11 @@ type TSetTags = {
   tags: ITag[];
 };
 
+type TAddTagAdmin = {
+  type: "ADD_TAG";
+  tag: ITag;
+};
+
 //Ideas action types
 type TsetIdeas = {
   type: "SET_IDEAS";
@@ -84,10 +90,36 @@ type TRemoveIdea = {
   project_id: string;
 };
 
+type TRemoveOneIdea = {
+  type: "REMOVE_ONE_IDEA";
+  idea_id: string;
+};
+
 type TEditIdea = {
   type: "EDIT_IDEA";
   idea_id: string;
   idea: IIdea;
+};
+
+//Brainstorming action types
+type TsetBrainTitle = {
+  type: "SET_BRAIN_TITLE";
+  brainTitle: IBrain[];
+};
+
+type TSetBsIdeas = {
+  type: "SET_BSIDEAS";
+  bsIdeas: IBsIdea[];
+};
+
+type TAddBsIdea = {
+  type: "ADD_BSIDEA";
+  bsIdea: IBsIdea;
+};
+type TUpdateBSvotes = {
+  type: "UPDATE_BSVOTES";
+  bsIdea_id: string;
+  bsIdea: IBsIdea;
 };
 
 type TReset = {
@@ -104,10 +136,16 @@ export type TAction =
   | TSetProjects
   | TAddProject
   | TSetTags
+  | TAddTagAdmin
   | TEditProject
   | TRemoveProject
   | TsetIdeas
   | TAddIdea
   | TRemoveIdea
+  | TRemoveOneIdea
   | TEditIdea
-  | TUpdateVotes;
+  | TUpdateVotes
+  | TsetBrainTitle
+  | TSetBsIdeas
+  | TAddBsIdea
+  | TUpdateBSvotes;

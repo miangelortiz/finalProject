@@ -35,6 +35,7 @@ const UserProjects: React.FC<
         <Icon small>folder_shared</Icon> [ proyectos de {user.name} ]
       </div>
       <div className="row flipRow">
+        {/* {!userProjects && <p>No tienes todavía ningún proyecto publicado.¡¿A qué esperas?!</p> } */}
         {userProjects.map(project => (
           <div className="col flipCol" key={project._id}>
             <Flippy
@@ -47,7 +48,10 @@ const UserProjects: React.FC<
                   backgroundColor: "#083B66",
                   fontSize: "25px",
                   textAlign: "center",
-                  color: "white"
+                  color: "white",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between"
                 }}
               >
                 <p>{project.title}</p>
@@ -61,8 +65,8 @@ const UserProjects: React.FC<
                     className="imgPlist"
                     alt="user"
                   />
-
-                  <span className="userProject">por {project.user.name} </span>
+                  <br />
+                  <span>por {project.user.name} </span>
                 </div>
               </FrontSide>
               <BackSide
@@ -80,15 +84,6 @@ const UserProjects: React.FC<
                     </div>
                   ))}
                 </div>
-
-                <div className="row userInfo">
-                  <Icon tiny>date_range</Icon>
-                  {new Date(project.created).toLocaleDateString()}
-                </div>
-
-                <div className="row userInfo">
-                  <Icon tiny>thumb_up</Icon> {project.votes.length}
-                </div>
                 <div className="row moreInf">
                   <Link to={"/projects/" + project._id}>
                     <Button
@@ -101,6 +96,16 @@ const UserProjects: React.FC<
                       tooltipoptions={{ position: "bottom" }}
                     />
                   </Link>
+                </div>
+
+                <div className="row userInfo">
+                  <div className="col s6 ">
+                    {new Date(project.created).toLocaleDateString()}
+                  </div>
+                  <div className="col s6">
+                    {project.votes.length}
+                    <Icon tiny>thumb_up</Icon>
+                  </div>
                 </div>
               </BackSide>
             </Flippy>

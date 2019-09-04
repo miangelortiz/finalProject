@@ -2,8 +2,13 @@
   background-color: #fafafa;
 }
 
+.navbar-fixed{
+  flex: 0 0 64px;
+}
+
 .logoImg {
   width: 100px;
+  margin: 10px 0px 0px 20px;
 }
 
 .navLink {
@@ -22,10 +27,14 @@ nav a {
   color: black;
 }
 
-.userBut{
-  padding-right: 20px
+.userBut {
+  padding: 0px 20px 0px 15px;
+  margin-right: 40px;
 }
 
-.modalNav{
+.modalNav {
   width: 500px;
+}
+#dropdown3 {
+  top: 53px !important;
 }

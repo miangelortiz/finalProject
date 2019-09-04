@@ -4,28 +4,27 @@ import { IIdea } from "../../interfaces/ideaInterface";
 import { IGlobalState } from "../../reducers/reducers";
 import * as actions from "../../actions/actions";
 import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
 
 const { Textarea, Button } = require("react-materialize");
 
+interface IProps {
+  projectId: string;
+}
 interface IPropsGlobal {
   myUser: IMyUser;
   token: string;
-  ideas: IIdea[];
   addNewIdea: (idea: IIdea) => void;
 }
 
-const AddIdea: React.FC<
-  IPropsGlobal & RouteComponentProps<{ projectId: string }>
-> = props => {
-  const projectId = props.match.params.projectId;
-
+const AddIdea: React.FC<IProps & IPropsGlobal> = props => {
+  const projectId = props.projectId;
 
   const [contentValue, setContentValue] = React.useState<string>("");
   const contentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContentValue(event.currentTarget.value);
   };
 
+  //ADD Idea by log user
   const addIdea = () => {
     fetch("http://localhost:3000/api/ideas/add/" + projectId, {
       method: "POST",
@@ -40,7 +39,6 @@ const AddIdea: React.FC<
       if (resp.ok) {
         resp.json().then((i: IIdea) => {
           props.addNewIdea(i);
-          props.history.push(`/projects/${projectId}`);
         });
       }
     });
@@ -52,7 +50,7 @@ const AddIdea: React.FC<
         <div className="col s12">
           <Textarea
             noLayout
-            label="Aporta tu idea al proyecto"
+            label="Aporta tu idea al proyecto (máx. 500 caracteres)"
             data-length={500}
             maxLength="500"
             value={contentValue}
@@ -65,12 +63,20 @@ const AddIdea: React.FC<
           <Button
             className="teal lighten-2"
             tooltip="Añade tu idea"
-            tooltipoptions={{ position: "right" }}
+            tooltipOptions={{ position: "right" }}
             floating
             waves="light"
             small
             icon="check"
-            onClick={addIdea}
+            onClick={() => {
+              setTimeout(() => {
+                const a: any = document.getElementsByClassName(
+                  "modal-close"
+                )[0];
+                a.click();
+              }, 10);
+              addIdea();
+            }}
           />
         </div>
       </div>

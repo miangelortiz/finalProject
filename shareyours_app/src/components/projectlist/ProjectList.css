@@ -2,8 +2,7 @@
   margin-bottom: 30px;
 }
 .flipRow {
-  padding-left: 80px;
-  padding-top: 20px;
+  display: contents
 }
 
 .chip {
@@ -31,14 +30,13 @@ a {
 
 .titlePlist {
   font-size: 20px;
-  /* font-weight: bold; */
-  padding-left: 90px;
+  font-weight: bold;
+  padding-bottom: 30px;
 }
 
 .userPlist {
   font-size: 15px;
-  height: 100px;
-  width: 230px;
+
 }
 
 .col .row {
@@ -49,7 +47,14 @@ a {
 
 .userInfo {
   font-size: 15px;
-  /* padding-top: 4px */
+  text-align: center !important;
+  font-weight: bold;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+.userInfoDate{
+  text-align: left !important;
 }
 
 .tagsP {
@@ -60,3 +65,15 @@ a {
   padding-top: 20px;
 }
 
+.myUserC {
+  padding-top: 60px;
+}
+
+.addProject {
+  padding-left: 100px;
+}
+
+.userName{
+  /* color:#DAAA49; */
+  /* font-weight: bold */
+}

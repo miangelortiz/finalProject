@@ -17,22 +17,28 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
   const [userNameValue, setUserNameValue] = React.useState<string>("");
   const [avatarValue, setAvatarsValue] = React.useState<string>("");
   const [error, setError] = React.useState<string>("");
+  const [msg, setMsg] = React.useState<string>("");
 
   const emailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmailValue(event.currentTarget.value);
     setError("");
+    setMsg("");
   };
   const userNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserNameValue(event.currentTarget.value);
     setError("");
+    setMsg("");
   };
   const passwordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(event.currentTarget.value);
     setError("");
+    setMsg("");
   };
 
   const avatarChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setAvatarsValue(event.currentTarget.value);
+    setError("");
+    setMsg("");
   };
 
   //Register user
@@ -53,9 +59,10 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         response.json().then((user: IUser) => {
           props.history.push("/");
           props.regUser(user);
+          setMsg("¡Has sido registrado! Inicia sesión");
         });
       } else {
-        setError("Ya existe un usuario registrado con ese correo");
+        setError("Ya existe un usuario con ese nombre o correo");
       }
     });
   };
@@ -68,7 +75,6 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         validate
         label="correo electrónico"
         error="Escriba un correo correcto"
-        success="¡Vamos a ver!"
         value={emailValue}
         onChange={emailChange}
       />
@@ -88,7 +94,6 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         validate
         label="contraseña"
         error="Debe tener 4 o más caracteres"
-        success="¡Bien hecho!"
         minLength="4"
         value={passwordValue}
         onChange={passwordChange}
@@ -101,7 +106,7 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         noLayout
         options={{ dropDownOptions: { closeOnClick: false } }}
       >
-        <option value="" disabled selected>
+        <option defaultValue="" selected disabled >
           Elije tu avatar
         </option>
         <option
@@ -161,12 +166,15 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         waves="light"
         small
         icon="check"
+        tooltip="¡Regístrate!"
+        tooltipOptions={{ position: "right" }}
         onClick={regUser}
       />
-      <span>
+      {/* <span>
         <strong> ...solo estás a un paso</strong>
-      </span>
+      </span> */}
       <Badge className="red-text">{error}</Badge>
+      <Badge className="teal-text">{msg}</Badge>
     </span>
   );
 };

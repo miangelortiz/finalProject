@@ -4,7 +4,7 @@ import { IProject } from "../../interfaces/projectInterfaces";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
 import { IMyUser } from "../../interfaces/userInterfaces";
-import { RouteComponentProps, Link, Route } from "react-router-dom";
+import { RouteComponentProps, Link} from "react-router-dom";
 import { IIdea } from "../../interfaces/ideaInterface";
 import AddIdea from "../addidea/AddIdea";
 import * as actions from "../../actions/actions";
@@ -36,6 +36,7 @@ const ShowProject: React.FC<
     return null;
   }
 
+  //Add/remove user id that votes
   const updateVotes = (project_id: string, project: IProject) => {
     const userId = props.myUser.id;
     if (!userId) {
@@ -43,30 +44,35 @@ const ShowProject: React.FC<
     }
 
     const voted = project.votes.find(i => i === userId);
-    if (voted || project.user._id === userId) {
-      console.log("ya has votado");
+    if (project.user._id === userId) {
+      return console.log("no puedes votarte a ti mismo");
+    }
+    if (voted) {
+      const removeVote = project.votes;
+      const index = project.votes.findIndex(v => v === userId);
+      removeVote.splice(index, 1);
+      var votes = [...removeVote];
     } else {
       const newVote = project.votes;
       newVote.push(userId);
-      const votes = [...newVote];
-
-      fetch("http://localhost:3000/api/projects/votes/" + project._id, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + props.token
-        },
-        body: JSON.stringify({
-          votes: votes
-        })
-      }).then(resp => {
-        if (resp.ok) {
-          resp.json().then((p: IProject) => {
-            props.updateVotes(project_id, p);
-          });
-        }
-      });
+      votes = [...newVote];
     }
+    fetch("http://localhost:3000/api/projects/votes/" + project._id, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + props.token
+      },
+      body: JSON.stringify({
+        votes: votes
+      })
+    }).then(resp => {
+      if (resp.ok) {
+        resp.json().then((p: IProject) => {
+          props.updateVotes(project_id, p);
+        });
+      }
+    });
   };
 
   return (
@@ -114,11 +120,11 @@ const ShowProject: React.FC<
               <div className="row">
                 <div className="col s12">
                   <p>
-                  {project.tags.map(tag => (
-                    <Link to={"/projects/tag/" + tag._id} key={tag._id}>
-                      <div className="chip">{tag.name}</div>
-                    </Link>
-                  ))}
+                    {project.tags.map(tag => (
+                      <Link to={"/projects/tag/" + tag._id} key={tag._id}>
+                        <div className="chip">{tag.name}</div>
+                      </Link>
+                    ))}
                   </p>
                 </div>
               </div>
@@ -148,20 +154,18 @@ const ShowProject: React.FC<
                         className="modalShow"
                         options={{ dismissible: false }}
                         trigger={
-                          <Link to={"/idea/add/" + project._id}>
-                            <Button
-                              className="pulse"
-                              floating
-                              waves="light"
-                              icon="lightbulb_outline"
-                              tooltip="¡Aporta una idea!"
-                              tooltipoptions={{ position: "right" }}
-                            />
-                          </Link>
+                          <Button
+                            className="pulse"
+                            floating
+                            waves="light"
+                            icon="lightbulb_outline"
+                            tooltip="¡Aporta una idea!"
+                            tooltipoptions={{ position: "right" }}
+                          />
                         }
                       >
                         <p>
-                          <Route component={AddIdea} />
+                          <AddIdea projectId={project._id} />
                         </p>
                       </Modal>
                     </div>
@@ -190,17 +194,18 @@ const ShowProject: React.FC<
                   {props.myUser.id === i.user._id && (
                     <div className="col s3">
                       <Modal
-                        header="Actualiza tu idea"
+                        header="[ actualiza tu idea ]"
                         options={{ dismissible: false }}
+                        className="modalShow"
                         trigger={
-                          <Link to={"/idea/edit/" + i._id}>
+                          <a href="#">
                             <Icon tiny>edit</Icon>
-                            <span className="showDuser"> editar </span>
-                          </Link>
+                           <span className="showDuser"> editar </span>
+                          </a>
                         }
                       >
                         <p>
-                          <Route component={EditIdea} />
+                          <EditIdea ideaId={i._id} />
                         </p>
                       </Modal>
                     </div>

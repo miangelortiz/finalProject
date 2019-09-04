@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    name: String,
+    name: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    avatar: String
+    avatar: String,
+    isAdmin: Boolean
   },
   { collection: "users" }
 );

@@ -4,6 +4,7 @@ import { IMyUser, IUser } from "../interfaces/userInterfaces";
 import { IProject } from "../interfaces/projectInterfaces";
 import { ITag } from "../interfaces/tagInterface";
 import { IIdea } from "../interfaces/ideaInterface";
+import { IBrain, IBsIdea } from "../interfaces/brainInterface";
 
 //Token action
 export const setToken: ActionCreator<TAction> = (newToken: string) => ({
@@ -81,6 +82,11 @@ export const setTags: ActionCreator<TAction> = (tags: ITag[]) => ({
   tags
 });
 
+export const addTag: ActionCreator<TAction> = (tag: ITag) => ({
+  type: "ADD_TAG",
+  tag
+});
+
 //Ideas actions
 export const setIdeas: ActionCreator<TAction> = (ideas: IIdea[]) => ({
   type: "SET_IDEAS",
@@ -97,6 +103,11 @@ export const removeIdea: ActionCreator<TAction> = (project_id: string) => ({
   project_id
 });
 
+export const removeOneIdea: ActionCreator<TAction> = (idea_id: string) => ({
+  type: "REMOVE_ONE_IDEA",
+  idea_id
+});
+
 export const editIdea: ActionCreator<TAction> = (
   idea_id: string,
   idea: IIdea
@@ -104,6 +115,33 @@ export const editIdea: ActionCreator<TAction> = (
   type: "EDIT_IDEA",
   idea_id,
   idea
+});
+
+//Brainstorming actions
+export const setBrainTitle: ActionCreator<TAction> = (
+  brainTitle: IBrain[]
+) => ({
+  type: "SET_BRAIN_TITLE",
+  brainTitle
+});
+
+export const setBsIdeas: ActionCreator<TAction> = (bsIdeas: IBsIdea[]) => ({
+  type: "SET_BSIDEAS",
+  bsIdeas
+});
+
+export const addBsIdea: ActionCreator<TAction> = (bsIdea: IBsIdea) => ({
+  type: "ADD_BSIDEA",
+  bsIdea
+});
+
+export const updateBSvotes: ActionCreator<TAction> = (
+  bsIdea_id: string,
+  bsIdea: IBsIdea
+) => ({
+  type: "UPDATE_BSVOTES",
+  bsIdea_id,
+  bsIdea
 });
 
 export const Reset: ActionCreator<TAction> = () => ({

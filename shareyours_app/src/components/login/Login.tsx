@@ -63,7 +63,6 @@ const Login: React.FC<IProps & IPropsGlobal & RouteComponentProps> = props => {
         validate
         label="correo electrónico"
         error="Escriba un correo correcto"
-        success="¡Bien hecho!"
         value={emailValue}
         onChange={emailChange}
       />
@@ -74,7 +73,6 @@ const Login: React.FC<IProps & IPropsGlobal & RouteComponentProps> = props => {
         validate
         label="contraseña"
         error="Debe tener 4 o más caracteres"
-        success="¡Bien hecho!"
         minLength="4"
         value={passwordValue}
         onChange={passwordChange}
@@ -83,15 +81,13 @@ const Login: React.FC<IProps & IPropsGlobal & RouteComponentProps> = props => {
       <Button
         className="teal lighten-2"
         floating
-        node="a"
         waves="light"
         small
         icon="check"
+        tooltip="¡Adelante!"
+        tooltipOptions={{ position: "right" }}
         onClick={getToken}
       />
-      <span>
-        <strong> ¡Adelante!</strong>
-      </span>
       <Badge className="red-text">{error}</Badge>
     </span>
   );

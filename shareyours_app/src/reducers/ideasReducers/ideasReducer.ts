@@ -21,6 +21,12 @@ export const ideasReducer = (
     ideas.splice(index, 1);
     return [...ideas];
   }
+  if (action.type === "REMOVE_ONE_IDEA") {
+    const ideas = state;
+    const index = ideas.findIndex(i => i._id === action.idea_id);
+    ideas.splice(index, 1);
+    return [...ideas];
+  }
   if (action.type === "EDIT_IDEA") {
     const ideas = state;
     const index = ideas.findIndex(i => i._id === action.idea_id);

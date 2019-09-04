@@ -9,6 +9,9 @@ import { ITag } from "../interfaces/tagInterface";
 import { tagsReducer } from "./tagReducer/tagReducer";
 import { IIdea } from "../interfaces/ideaInterface";
 import { ideasReducer } from "./ideasReducers/ideasReducer";
+import { IBrain, IBsIdea } from "../interfaces/brainInterface";
+import { brainReducer } from "./brainReducer/brainReducer";
+import { bsIdeaReducer } from "./bsIdeasReducers/bsIdeasReducer";
 
 export interface IGlobalState {
   token: string;
@@ -17,6 +20,8 @@ export interface IGlobalState {
   projects: IProject[];
   tags: ITag[];
   ideas: IIdea[];
+  brainTitle: IBrain[];
+  bsIdeas: IBsIdea[];
 }
 
 export const reducers = combineReducers<IGlobalState>({
@@ -25,5 +30,7 @@ export const reducers = combineReducers<IGlobalState>({
   users: usersReducer,
   projects: projectReducer,
   tags: tagsReducer,
-  ideas: ideasReducer
+  ideas: ideasReducer,
+  brainTitle: brainReducer,
+  bsIdeas: bsIdeaReducer
 });

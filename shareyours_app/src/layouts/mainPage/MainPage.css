@@ -1,28 +1,36 @@
 body {
-  background-color: #F5F5F5;
-  /* font-family: 'Roboto', sans-serif; */
-  font-family: 'Source Sans Pro', sans-serif;
+  background-color: #f5f5f5;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .mainCont {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
-.mainRow{
-  padding-top: 100px;
+.mainRow {
+  padding-top: 150px;
 }
 
-.footRow{
-  padding-top: 140px;
-}
-
-.mainImage{
-  width: 600px;
+.mainImage {
+  width: 500px;
   padding-top: 60px;
 }
 
-.mainTitle{
+.mainTitle {
   font-weight: bold;
   text-align: center;
-  font-size: 15px;
+  font-size: 30px;
+  color: #083b66;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
 }

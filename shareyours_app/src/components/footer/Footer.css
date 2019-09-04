@@ -1,0 +1,39 @@
+.rowFooter {
+  background-color: #083b66;
+  height: 100px;
+}
+
+.textFooter {
+  color: #eceff1;
+  text-align: left;
+  font-size: 18px;
+  padding-top: 20px;
+}
+.textFooter2 {
+  color: #eceff1;
+  text-align: center;
+  font-size: 18px;
+  padding-top: 20px;
+}
+.textFooter3 {
+  color: #eceff1;
+  text-align: right;
+}
+.ulFooter {
+  padding-top: 20px;
+}
+
+.ulFooter li {
+  display: inline;
+  padding-right: 35px;
+}
+
+.socialFooter {
+  width: 25px;
+}
+
+.imgFooter {
+  width: 40px;
+  color: white;
+  padding-top: 10px;
+}

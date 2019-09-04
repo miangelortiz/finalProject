@@ -1,18 +1,42 @@
 .modButton {
-  font-size: 15px;
-  color: grey;
-}
-
-.myPdate{
-  font-size: 15px
-}
-
-.myProw{
-  margin-top: 80px;
-
-}
-
-.modText{
+  font-size: 17px;
+  color: black;
   font-weight: bold;
-  font-size: 12px
+}
+
+/* .myPdate {
+  font-size: 15px;
+} */
+
+.myProw {
+  display: inline;
+  font-size: 15px;
+}
+
+.modText {
+  font-weight: bold;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0px;
+}
+
+/* .myUserInfo {
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold;
+} */
+
+.myProject {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.myPcontent {
+  display: contents;
+}
+
+.myPvoteInfo {
+  font-size: 20px;
 }

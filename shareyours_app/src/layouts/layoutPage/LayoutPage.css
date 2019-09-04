@@ -1,5 +1,16 @@
 .contentCol {
-    margin-top: 70px;
-    height: 100vh;
-    
+  margin-top: 50px;
+  display: flex;
+}
+
+.contentRow {
+  flex: 0 1 100%;
+}
+
+.footCol {
+  padding: 0px !important;
+}
+
+.footRow {
+  flex: 0 0 100px;
 }

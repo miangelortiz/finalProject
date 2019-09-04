@@ -1,35 +1,42 @@
 import React from "react";
+import "./Footer.css";
 
 const Footer: React.FC = () => {
-  const { Footer, Icon } = require("react-materialize");
   return (
-    <Footer
-      copyrights="© 2019 ShareYours"
-      links={<ul />}
-      className="white"
-    >
-      <div className="row">
-        <div className="col l6 ">
-          <p className="grey-text text-darken-4">
-            Made with <Icon tiny>favorite_border</Icon> with react-materialize
-          </p>
-        </div>
-        <div className="col l2 offset-l4 ">
-          <ul>
-            <li>
-              <a className="grey-text text-darken-3" href="#!">
-                Link 1
-              </a>
-            </li>
-            <li>
-              <a className="grey-text text-darken-3" href="#!">
-                Link 2
-              </a>
-            </li>
-          </ul>
-        </div>
+    <div className="row rowFooter">
+      <div className="col s4 ">
+        <p className="textFooter">
+          {/* <img src="/images/idea.png" className="imgFooter" alt="MyGithub" /> [ */}
+          © 2019 ShareYours
+        </p>
       </div>
-    </Footer>
+      <div className="col s4 ">
+        {" "}
+        <p className="textFooter2">[ a startup comunity ]</p>{" "}
+      </div>
+      <div className="col s4 textFooter3">
+        <ul className="ulFooter">
+          <li>
+            <a href="https://github.com/miangelortiz">
+              <img
+                src="/images/GitHub_Logo.png"
+                className="socialFooter"
+                alt="MyGithub"
+              />
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/maortizolid">
+              <img
+                src="/images/linkedin-logo.jpg"
+                className="socialFooter"
+                alt="MyLinkedIn"
+              />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 };
 

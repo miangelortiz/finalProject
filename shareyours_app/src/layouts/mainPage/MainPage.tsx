@@ -9,20 +9,20 @@ import { connect } from "react-redux";
 interface IPropsGlobal {
   setToken: (token: string) => void;
 }
-const { Collapsible, CollapsibleItem, Icon } = require("react-materialize");
+const { Collapsible, CollapsibleItem } = require("react-materialize");
 
 const Main: React.FC<IPropsGlobal> = () => {
   return (
     <div className="container mainCont">
       <div className="row mainRow">
-        <div className="col s6">
+        <div className="col s6 animated  bounceInLeft slow">
           <img src="/images/logo.png" alt="" className="mainImage" />
         </div>
         <div className="col s6">
           <div className="row">
-            <div className="col s12 m8">
-              <div className="card-panel teal lighten-3 mainTitle">
-                ¡No esperes más! ¡Aporta tu proyecto e ideas!
+            <div className="col s12 m8 animated  bounceInRight">
+              <div className="mainTitle animated  wobble slow">
+                ¡No esperes más! <br/> ¡Aporta tu proyecto e ideas!
               </div>
               <Collapsible popout>
                 <CollapsibleItem
@@ -43,11 +43,8 @@ const Main: React.FC<IPropsGlobal> = () => {
           </div>
         </div>
       </div>
-      <div className="row footRow">
-        <div className="col s12">
-          © 2019 ShareYours | Made with <Icon tiny>favorite_border</Icon> with
-          react-materialize
-        </div>
+      <div className="row mainRow">
+        <div className="col s12">© 2019 ShareYours [ a startup comunity ]</div>
       </div>
     </div>
   );

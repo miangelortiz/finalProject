@@ -34,7 +34,7 @@ const TagsProjects: React.FC<
       <div className="row titlePlist">#{tag.name}</div>
       <div className="row flipRow">
         {projects.map(p => (
-          <div className="col flipCol" key={p._id}>
+          <div className="col s4 flipCol" key={p._id}>
             <Flippy
               flipOnHover={true}
               flipDirection="horizontal"
@@ -45,22 +45,31 @@ const TagsProjects: React.FC<
                   backgroundColor: "#083B66",
                   fontSize: "25px",
                   textAlign: "center",
-                  color: "white"
+                  color: "white",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between"
                 }}
               >
-                <p>{p.title}</p>
+                <div className="row">
+                  <div className="col s12">
+                    <p>{p.title}</p>
+                  </div>
+                </div>
                 <div className="row userPlist">
-                  <img
-                    src={
-                      "http://localhost:3000/images/avatars/" +
-                      p.user.avatar +
-                      ".png"
-                    }
-                    className="imgPlist"
-                    alt="user"
-                  />
-
-                  <span className="userProject">por {p.user.name} </span>
+                  <div className="col s12">
+                    <img
+                      src={
+                        "http://localhost:3000/images/avatars/" +
+                        p.user.avatar +
+                        ".png"
+                      }
+                      className="imgPlist"
+                      alt="user"
+                    />
+                    <br />
+                    <span className="userName">por {p.user.name} </span>
+                  </div>
                 </div>
               </FrontSide>
               <BackSide
@@ -78,14 +87,6 @@ const TagsProjects: React.FC<
                     </div>
                   ))}
                 </div>
-                <div className="row userInfo">
-                  <Icon tiny>date_range</Icon>
-                  {new Date(p.created).toLocaleDateString()}
-                </div>
-
-                <div className="row userInfo">
-                  <Icon tiny>thumb_up</Icon> {p.votes.length}
-                </div>
                 <div className="row moreInf">
                   <Link to={"/projects/" + p._id}>
                     <Button
@@ -98,6 +99,16 @@ const TagsProjects: React.FC<
                       tooltipoptions={{ position: "bottom" }}
                     />
                   </Link>
+                </div>
+
+                <div className="row userInfo">
+                  <div className="col s6  userInfoDate">
+                    {new Date(p.created).toLocaleDateString()}
+                  </div>
+                  <div className="col s6">
+                    {p.votes.length}
+                    <Icon tiny>thumb_up</Icon>
+                  </div>
                 </div>
               </BackSide>
             </Flippy>

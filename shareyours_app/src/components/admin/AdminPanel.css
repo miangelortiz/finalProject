@@ -1,0 +1,14 @@
+.adminTitle {
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 30px;
+  font-weight: bold;
+}
+
+.showAdmin {
+  font-weight: bold;
+}
+
+.panelShowUser {
+  text-align: left;
+}

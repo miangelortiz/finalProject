@@ -5,8 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "../../actions/actions";
 import { RouteComponentProps } from "react-router";
 
-
-const { TextInput, Button, Select } = require("react-materialize");
+const { TextInput, Button, Select, Modal } = require("react-materialize");
 
 interface IPropsGlobal {
   token: string;
@@ -31,7 +30,7 @@ const MyUser: React.FC<
   const [avatarValue, setAvatarsValue] = React.useState<string>(
     userLog ? userLog.avatar : ""
   );
-  const [error, setError] = React.useState<string>("");
+  // const [error, setError] = React.useState<string>("");
 
   if (!userLog) {
     return null;
@@ -95,7 +94,7 @@ const MyUser: React.FC<
   return (
     <div className="container">
       <div className="row">
-        <div className="col s5">
+        <div className="col s4 offset-s4 ">
           <div className="card">
             <div className="card-image waves-effect waves-block waves-light">
               <img
@@ -113,6 +112,7 @@ const MyUser: React.FC<
                 {userLog.name}
                 <i className="material-icons right">more_vert</i>
               </span>
+              <p>{userLog.email}</p>
               <p>Edita y cambia tu perfil de usuario</p>
             </div>
             <div className="card-reveal">
@@ -155,7 +155,6 @@ const MyUser: React.FC<
                 />
 
                 <Select
-                  browserDefault
                   className="icons"
                   onChange={avatarChange}
                   noLayout
@@ -223,14 +222,13 @@ const MyUser: React.FC<
                   </option>
                 </Select>
 
-                <div className="row">
+                <div className="row myUserC">
                   <div className="col s6">
                     <Button
                       className="teal lighten-2"
                       floating
                       node="a"
                       waves="light"
-                      large
                       icon="edit"
                       tooltip="Cambiemos tu perfil"
                       tooltipoptions={{ position: "bottom" }}
@@ -238,17 +236,31 @@ const MyUser: React.FC<
                     />
                   </div>
                   <div className="col s6">
-                    <Button
-                      className="teal lighten-2"
-                      floating
-                      node="a"
-                      waves="light"
-                      large
-                      icon="delete_forever"
-                      tooltip="¡Se eliminarán todos tus proyectos y las ideas aportadas a otros proyectos!"
-                      tooltipoptions={{ position: "bottom" }}
-                      onClick={() => deleteUser(userLog._id)}
-                    />
+                    <Modal
+                      header="Vas a eliminar tu cuenta, se eliminarán también todos tus proyectos e ideas aportadas a otros usuarios."
+                      className="modalShow"
+                      options={{ dismissible: false }}
+                      trigger={
+                        <Button
+                          className="teal lighten-2"
+                          floating
+                          node="a"
+                          waves="light"
+                          icon="delete_forever"
+                          tooltip="Elimina tu cuenta"
+                          tooltipoptions={{ position: "bottom" }}
+                        />
+                      }
+                    >
+                      <span>
+                        <Button
+                          className="red"
+                          onClick={() => deleteUser(userLog._id)}
+                        >
+                          ¿Estás seguro?
+                        </Button>{" "}
+                      </span>
+                    </Modal>
                   </div>
                 </div>
               </span>
