@@ -26,6 +26,7 @@ const AdminPanel: React.FC<IPropsglobal> = props => {
     setMsg("");
   };
 
+  //Add weekly brainstorming
   const addBrainProject = () => {
     fetch("http://localhost:3000/api/brainstorming/add", {
       method: "POST",

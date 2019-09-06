@@ -9,7 +9,6 @@ const {
   Collapsible,
   CollapsibleItem,
   Button,
-  Icon
 } = require("react-materialize");
 
 interface IPropsGlobal {
@@ -20,6 +19,7 @@ interface IPropsGlobal {
 }
 
 const UsersAdmin: React.FC<IPropsGlobal> = props => {
+  //Delete any user
   const delUser = (user_id: string) => {
     fetch("http://localhost:3000/api/user/" + user_id, {
       method: "DELETE",

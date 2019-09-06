@@ -50,7 +50,7 @@ const MyNavbar: React.FC<IPropsGlobal & RouteComponentProps> = props => {
           className="navLink"
           onClick={() => props.history.push("/admin")}
         >
-         [ ADMIN ]
+          [ ADMIN ]
         </Button>
       )}
       <Button
@@ -107,12 +107,14 @@ const MyNavbar: React.FC<IPropsGlobal & RouteComponentProps> = props => {
             options={{ dismissible: false }}
             trigger={<Link to={"/user/votes/" + props.myUser.id}> votos</Link>}
           >
-            <p>
+            <div>
               <Route component={Notifications} />
-            </p>
+            </div>
           </Modal>
           <Divider />
-          <a onClick={logOut}>cerrar sesión</a>
+          <a href="#" onClick={logOut}>
+            cerrar sesión
+          </a>
         </Dropdown>
       </div>
     </Navbar>

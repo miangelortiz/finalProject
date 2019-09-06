@@ -7,7 +7,7 @@ import AddBsIdea from "./AddBsIdea";
 import { IMyUser } from "../../interfaces/userInterfaces";
 import * as actions from "../../actions/actions";
 
-const { Button, Modal } = require("react-materialize");
+const { Button, Modal, Icon } = require("react-materialize");
 
 interface IPropsGlobal {
   token: string;
@@ -23,10 +23,15 @@ const Brainstorming: React.FC<IPropsGlobal> = props => {
     (b1, b2) => new Date(b2.created).valueOf() - new Date(b1.created).valueOf()
   );
 
+  const brainIdeas = props.bsIdeas.filter(
+    bi => bi.brain._id === currentTitle[0]._id
+  );
+
   if (!currentTitle) {
     return null;
   }
 
+  //Add or remove votes from brainstorming idea
   const updateBSvotes = (bsIdea_id: string, bsIdea: IBsIdea) => {
     const userId = props.myUser.id;
     if (!userId) {
@@ -91,7 +96,7 @@ const Brainstorming: React.FC<IPropsGlobal> = props => {
                 que pasarán a formar parte del proyecto. ¡Anímate y pon la tuya!{" "}
               </span>
             </Modal>{" "}
-            {props.bsIdeas.findIndex(i => i.user._id === props.myUser.id) ===
+            {brainIdeas.findIndex(i => i.user._id === props.myUser.id) ===
               -1 && (
               <Modal
                 header="[ idea para el proyecto de la semana ]"
@@ -108,48 +113,61 @@ const Brainstorming: React.FC<IPropsGlobal> = props => {
                   />
                 }
               >
-                <p>
+                <div>
                   <AddBsIdea brainId={currentTitle[0]._id} />
-                </p>
+                </div>
               </Modal>
             )}
           </div>
         </div>
-
         <div className="row">
           <div className="col s12 brainTitle">{currentTitle[0].title}</div>
         </div>
-        <div className="row ">
-          <ul className="ulPosit">
-            {props.bsIdeas.map(bsi => (
-              <div className="col s2 liPosit">
-              <li key={bsi._id} >
-                <a className="aPosit">
-                  <div className="row">
-                    <div className="col s12 pPosit">{bsi.content}</div>
+        <div className="row ulPosit">
+          <ul>
+            {brainIdeas.length === 0 && <p>No hay ideas!</p>}
+            {brainIdeas.length > 0 && (
+              <>
+                {brainIdeas.map(bsi => (
+                  <div className="col s2 liPosit" key={bsi._id}>
+                    <li>
+                      <a className="aPosit">
+                        <div className="row">
+                          <div className="col s12 pPosit">{bsi.content}</div>
+                        </div>
+                        <div className="row">
+                          <div className="col s8">
+                            por
+                            <span className="spanPosit"> {bsi.user.name} </span>
+                          </div>
+                          <div className="col s2">
+                            <Button
+                              className="transparent "
+                              floating
+                              waves="light"
+                              small
+                              onClick={() => updateBSvotes(bsi._id, bsi)}
+                              tooltip="¡Me gusta!"
+                            >
+                              <span className="spanPVotes2">
+                                {bsi.votes.length}
+                              </span>
+                            </Button>
+                          </div>
+                          <div className="col s2 spanPVotes">
+                            {bsi.votes.find(v => v === props.myUser.id) && (
+                              <span>
+                                <Icon  tiny>thumb_up</Icon>
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </a>
+                    </li>
                   </div>
-                  <div className="row">
-                    <div className="col s9">
-                      por
-                      <span className="spanPosit"> {bsi.user.name} </span>
-                    </div>
-                    <div className="col s3"></div>
-                    <Button
-                      className="transparent "
-                      floating
-                      waves="light"
-                      small
-                      onClick={() => updateBSvotes(bsi._id, bsi)}
-                      tooltip="¡Me gusta!"
-                      tooltipOptions={{ position: "right" }}
-                    >
-                      <span className="spanPVotes2">{bsi.votes.length}</span>
-                    </Button>
-                  </div>
-                </a>
-              </li>
-              </div>
-            ))}
+                ))}
+              </>
+            )}
           </ul>
         </div>
       </div>

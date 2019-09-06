@@ -17,6 +17,7 @@ interface IPropsGlobal {
 }
 
 const IdeasAdmin: React.FC<IPropsGlobal> = props => {
+  //Delete idea from any user
   const delIdea = (idea_id: string) => {
     fetch("http://localhost:3000/api/ideas/delete/" + idea_id, {
       method: "DELETE",
@@ -30,7 +31,6 @@ const IdeasAdmin: React.FC<IPropsGlobal> = props => {
       }
     });
   };
-
 
   return (
     <>

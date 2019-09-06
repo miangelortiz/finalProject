@@ -80,10 +80,14 @@ const ProjectsList: React.FC<
             (p1, p2) =>
               new Date(p2.created).valueOf() - new Date(p1.created).valueOf()
           )
-          .filter(project =>
-            project.title
-              .toLocaleLowerCase()
-              .includes(projectValue.toLocaleLowerCase())
+          .filter(
+            project =>
+              project.title
+                .toLocaleLowerCase()
+                .includes(projectValue.toLocaleLowerCase()) ||
+              project.user.name
+                .toLocaleLowerCase()
+                .includes(projectValue.toLocaleLowerCase())
           )
           .map(project => (
             <div className="col s4 flipCol " key={project._id}>
@@ -146,7 +150,6 @@ const ProjectsList: React.FC<
                         className="moreButton"
                         floating
                         waves="light"
-                        medium
                         icon="zoom_in"
                         tooltip="Entra, vota y aporta"
                         tooltipoptions={{ position: "bottom" }}

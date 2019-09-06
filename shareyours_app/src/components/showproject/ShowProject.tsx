@@ -4,7 +4,7 @@ import { IProject } from "../../interfaces/projectInterfaces";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
 import { IMyUser } from "../../interfaces/userInterfaces";
-import { RouteComponentProps, Link} from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 import { IIdea } from "../../interfaces/ideaInterface";
 import AddIdea from "../addidea/AddIdea";
 import * as actions from "../../actions/actions";
@@ -100,8 +100,8 @@ const ShowProject: React.FC<
                   <p>{project.content}</p>
                 </div>
               </div>
-              <div className="row">
-                <div className="col s12">
+              <div className="row ">
+                <div className="col s1 showVproject ">
                   <Button
                     className="teal lighten-2"
                     floating
@@ -110,22 +110,28 @@ const ShowProject: React.FC<
                     small
                     onClick={() => updateVotes(project._id, project)}
                     tooltip="¡Me gusta!"
-                    tooltipOptions={{ position: "right" }}
                   >
                     {project.votes.length}
-                  </Button>
+                  </Button>{" "}
+                </div>
+                <div className="col s11 showTproject">
+                  {project.votes.find(v => v === props.myUser.id) && (
+                    <span>
+                      <Icon className="showIcon" tiny>thumb_up</Icon>
+                    </span>
+                  )}
                 </div>
               </div>
 
               <div className="row">
                 <div className="col s12">
-                  <p>
+                  <div>
                     {project.tags.map(tag => (
                       <Link to={"/projects/tag/" + tag._id} key={tag._id}>
                         <div className="chip">{tag.name}</div>
                       </Link>
                     ))}
-                  </p>
+                  </div>
                 </div>
               </div>
 
@@ -164,9 +170,9 @@ const ShowProject: React.FC<
                           />
                         }
                       >
-                        <p>
+                        <div>
                           <AddIdea projectId={project._id} />
-                        </p>
+                        </div>
                       </Modal>
                     </div>
                   )}
@@ -198,15 +204,15 @@ const ShowProject: React.FC<
                         options={{ dismissible: false }}
                         className="modalShow"
                         trigger={
-                          <a href="#">
+                          <a>
                             <Icon tiny>edit</Icon>
-                           <span className="showDuser"> editar </span>
+                            <span className="showDuser"> editar </span>
                           </a>
                         }
                       >
-                        <p>
+                        <div>
                           <EditIdea ideaId={i._id} />
-                        </p>
+                        </div>
                       </Modal>
                     </div>
                   )}

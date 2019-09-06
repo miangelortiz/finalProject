@@ -22,10 +22,11 @@ const Main: React.FC<IPropsGlobal> = () => {
           <div className="row">
             <div className="col s12 m8 animated  bounceInRight">
               <div className="mainTitle animated  wobble slow">
-                ¡No esperes más! <br/> ¡Aporta tu proyecto e ideas!
+                ¡No esperes más! <br /> ¡Aporta tu proyecto e ideas!
               </div>
               <Collapsible popout>
                 <CollapsibleItem
+                  id="login_item"
                   header="Inicia sesión y continua"
                   icon="lock_open"
                   expanded
@@ -36,7 +37,7 @@ const Main: React.FC<IPropsGlobal> = () => {
                   header="¿No tienes cuenta? !Vamos allá!"
                   icon="person_outline"
                 >
-                  <Route component={RegisterUser} />
+                  <RegisterUser />
                 </CollapsibleItem>
               </Collapsible>
             </div>

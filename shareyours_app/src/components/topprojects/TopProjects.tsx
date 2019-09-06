@@ -85,7 +85,6 @@ const AllProjects: React.FC<
                         className="moreButton"
                         floating
                         waves="light"
-                        medium
                         icon="zoom_in"
                         tooltip="Entra, vota y aporta"
                         tooltipoptions={{ position: "bottom" }}

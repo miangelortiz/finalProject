@@ -5,14 +5,10 @@ const Footer: React.FC = () => {
   return (
     <div className="row rowFooter">
       <div className="col s4 ">
-        <p className="textFooter">
-          {/* <img src="/images/idea.png" className="imgFooter" alt="MyGithub" /> [ */}
-          © 2019 ShareYours
-        </p>
+        <img src="/images/idea.png" className="imgFooter" alt="ShareYours" />
       </div>
       <div className="col s4 ">
-        {" "}
-        <p className="textFooter2">[ a startup comunity ]</p>{" "}
+        <p className="textFooter2">© 2019 ShareYours</p>
       </div>
       <div className="col s4 textFooter3">
         <ul className="ulFooter">

@@ -58,7 +58,7 @@ controller.updateBSvotes = async (req, res) => {
     const updateVote = await bsIdeaModel
       .findById({ _id: req.params.id })
       .populate("user", { name: 1 })
-      .populate("brainstorming", { title: 1 });
+      .populate("brain", { title: 1 });
     res.send(updateVote);
   } catch {
     res.sendStatus(400);

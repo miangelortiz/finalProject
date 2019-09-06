@@ -29,7 +29,7 @@ const Notifications: React.FC<
       {myProjects.length > 0 && (
         <>
           {myProjects.map(p => (
-            <div className="row">
+            <div className="row" key={p._id}>
               <span className="voteTitle">{p.title}</span>
               {p.votes.length === 0 && <p>No has recibido aún ningún voto</p>}
               {p.votes.length > 0 && (

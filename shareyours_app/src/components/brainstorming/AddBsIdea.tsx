@@ -26,6 +26,7 @@ const AddBsIdea: React.FC<IProps & IPropsGlobal> = props => {
     setContentValue(event.currentTarget.value);
   };
 
+  //Add idea for brainstorming
   const addBsIdea = () => {
     fetch("http://localhost:3000/api/brainstorming/add/idea/", {
       method: "POST",

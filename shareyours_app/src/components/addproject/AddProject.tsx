@@ -50,6 +50,7 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
     setTagsValue(selectedOptions);
   };
 
+  //Add new project by the logged user
   const addNewProject = () => {
     const userId = props.myUser.id;
     fetch("http://localhost:3000/api/projects/add", {

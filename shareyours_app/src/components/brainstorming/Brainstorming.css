@@ -17,7 +17,7 @@
 
 .ulPosit {
   overflow: hidden;
-  padding: 1em;
+  padding: 2em;
 }
 
 .ulPosit .liPosit {
@@ -53,7 +53,6 @@
   -webkit-transform: rotate(5deg);
   position: relative;
   top: -10px;
-  /* background:#8c9eff */
 }
 
 /* Resaltado de las notas con sombreado y efecto "zoom" al utilzar la propiedad "hover" */
@@ -72,8 +71,8 @@
   color: #000;
   background: #ffc;
   /* display: block; */
-  height: 15em;
-  width: 15em;
+  height: 16em;
+  width: 16em;
   padding: 1em;
   box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
   -webkit-transition: -webkit-transform 0.15s linear;
@@ -88,6 +87,10 @@
   color: black;
   font-weight: bold;
 }
+.spanPVotes {
+  margin: 2px;
+  color: rgba(0, 0, 0, 0.637) !important;
+}
 
 .spanInfoBrain {
   font-size: 20px;
@@ -98,4 +101,3 @@
   flex-direction: column;
   justify-content: space-between;
 }
-

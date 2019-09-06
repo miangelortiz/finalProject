@@ -90,7 +90,7 @@ const MyProjects: React.FC<
                         <div className="col s12">{project.subtitle}</div>
                         <div className="col s12 tagsP">
                           {project.tags.map(tag => (
-                            <span className="chip">{tag.name}</span>
+                            <span className="chip" key={tag._id}>{tag.name}</span>
                           ))}
                         </div>
                         <div className="col s12">

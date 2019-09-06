@@ -3,7 +3,6 @@ import { IUser } from "../../interfaces/userInterfaces";
 import * as actions from "../../actions/actions";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
 const { TextInput, Button, Badge, Select } = require("react-materialize");
 
 interface IPropsGlobal {
@@ -11,7 +10,7 @@ interface IPropsGlobal {
   regUser: (user: IUser) => void;
 }
 
-const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
+const RegisterUser: React.FC<IPropsGlobal> = props => {
   const [emailValue, setEmailValue] = React.useState<string>("");
   const [passwordValue, setPasswordValue] = React.useState<string>("");
   const [userNameValue, setUserNameValue] = React.useState<string>("");
@@ -57,9 +56,12 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
     }).then(response => {
       if (response.ok) {
         response.json().then((user: IUser) => {
-          props.history.push("/");
           props.regUser(user);
           setMsg("¡Has sido registrado! Inicia sesión");
+          window.setTimeout(() => {
+            const a: any = document.getElementById("login_item")!.firstChild!;
+            a.click();
+          }, 2000);
         });
       } else {
         setError("Ya existe un usuario con ese nombre o correo");
@@ -106,7 +108,7 @@ const RegisterUser: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         noLayout
         options={{ dropDownOptions: { closeOnClick: false } }}
       >
-        <option defaultValue="" selected disabled >
+        <option defaultValue="" selected disabled>
           Elije tu avatar
         </option>
         <option

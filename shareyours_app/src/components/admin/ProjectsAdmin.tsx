@@ -15,6 +15,7 @@ interface IPropsGlobal {
 }
 
 const ProjectsAdmin: React.FC<IPropsGlobal> = props => {
+  //Delete project from any user
   const delProject = (project_id: string) => {
     fetch("http://localhost:3000/api/projects/" + project_id, {
       method: "DELETE",
