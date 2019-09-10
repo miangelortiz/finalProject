@@ -25,7 +25,7 @@ const AllProjects: React.FC<
         {props.projects
           .sort((p1, p2) => p2.votes.length - p1.votes.length)
           .map(project => (
-            <div className="col s4 flipCol" key={project._id}>
+            <div className="col s12 m4 flipCol" key={project._id}>
               <Flippy
                 flipOnHover={true}
                 flipDirection="horizontal"
@@ -98,7 +98,7 @@ const AllProjects: React.FC<
                     </div>
 
                     <div className="col s6 ">
-                      <Icon tiny>thumb_up</Icon> {project.votes.length}
+                    {project.votes.length} <Icon tiny>thumb_up</Icon>
                     </div>
                   </div>
                 </BackSide>

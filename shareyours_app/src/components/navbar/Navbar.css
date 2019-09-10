@@ -2,7 +2,7 @@
   background-color: #fafafa;
 }
 
-.navbar-fixed{
+.navbar-fixed {
   flex: 0 0 64px;
 }
 
@@ -35,7 +35,24 @@ nav a {
 .modalNav {
   width: 500px;
 }
-#dropdown3 {
+#dropdown13 {
   top: 53px !important;
 }
 
+@media screen and (max-width: 600px) {
+  .logoImg {
+    width: 85px;
+  }
+  /* #dropdown13 {
+  width: 180px !important;
+} */
+  .dropdown-content {
+    width: 180px !important;
+  }
+  nav .brand-logo {
+    left: 80% !important;
+  }
+  .modalNav {
+    width: 360px;
+  }
+}

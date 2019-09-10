@@ -2,7 +2,7 @@
   margin-bottom: 30px;
 }
 .flipRow {
-  display: contents
+  display: contents;
 }
 
 .chip {
@@ -36,7 +36,6 @@ a {
 
 .userPlist {
   font-size: 15px;
-
 }
 
 .col .row {
@@ -53,7 +52,7 @@ a {
   bottom: 10px;
   width: 100%;
 }
-.userInfoDate{
+.userInfoDate {
   text-align: left !important;
 }
 
@@ -73,7 +72,3 @@ a {
   padding-left: 100px;
 }
 
-.userName{
-  /* color:#DAAA49; */
-  /* font-weight: bold */
-}

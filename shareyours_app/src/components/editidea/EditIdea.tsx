@@ -82,7 +82,7 @@ const EditIdea: React.FC<IProps & IPropsGlobal> = props => {
         </div>
       </div>
       <div className="row">
-        <div className="col s6">
+        <div className="col s6 center">
           <Button
             className="teal lighten-2"
             tooltip="Actualizar"
@@ -100,7 +100,7 @@ const EditIdea: React.FC<IProps & IPropsGlobal> = props => {
             }}
           />
         </div>
-        <div className="col s6">
+        <div className="col s6 center">
           <Button
             className="red lighten-1"
             tooltip="Eliminar"

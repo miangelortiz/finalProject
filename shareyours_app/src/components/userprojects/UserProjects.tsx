@@ -99,12 +99,11 @@ const UserProjects: React.FC<
                 </div>
 
                 <div className="row userInfo">
-                  <div className="col s6 ">
+                  <div className="col s6 userInfoDate">
                     {new Date(project.created).toLocaleDateString()}
                   </div>
                   <div className="col s6">
-                    {project.votes.length}
-                    <Icon tiny>thumb_up</Icon>
+                    {project.votes.length} <Icon tiny>thumb_up</Icon>
                   </div>
                 </div>
               </BackSide>

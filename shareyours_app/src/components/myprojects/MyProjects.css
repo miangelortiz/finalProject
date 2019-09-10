@@ -4,10 +4,6 @@
   font-weight: bold;
 }
 
-/* .myPdate {
-  font-size: 15px;
-} */
-
 .myProw {
   display: inline;
   font-size: 15px;
@@ -19,12 +15,6 @@
   position: absolute;
   bottom: 0px;
 }
-
-/* .myUserInfo {
-  font-size: 15px;
-  text-align: center;
-  font-weight: bold;
-} */
 
 .myProject {
   display: flex;

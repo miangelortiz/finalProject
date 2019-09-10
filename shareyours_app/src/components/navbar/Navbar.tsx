@@ -78,7 +78,7 @@ const MyNavbar: React.FC<IPropsGlobal & RouteComponentProps> = props => {
         #proyectos
       </Button>
 
-      <div>
+      <>
         <Dropdown
           trigger={
             <Chip className="userBut ">
@@ -112,11 +112,9 @@ const MyNavbar: React.FC<IPropsGlobal & RouteComponentProps> = props => {
             </div>
           </Modal>
           <Divider />
-          <a href="#" onClick={logOut}>
-            cerrar sesión
-          </a>
+          <a onClick={logOut}>cerrar sesión</a>
         </Dropdown>
-      </div>
+      </>
     </Navbar>
   );
 };

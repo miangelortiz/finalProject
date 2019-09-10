@@ -31,6 +31,10 @@
   width: 600px;
 }
 
+.modalShowInfo{
+  width: 500px;
+}
+
 .delIdea {
   font-size: 15px;
   color: #083b66;
@@ -50,4 +54,18 @@
   color: rgba(0, 0, 0, 0.637) !important;
 }
 
+
+@media screen and (max-width: 600px) {
+.contentProject{
+  font-size: 15px;
+}
+.modalShowInfo{
+  width: 80% !important;
+}
+
+.showIuser{
+  font-size: 15px;
+}
+
+}
 

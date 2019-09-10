@@ -116,10 +116,12 @@ const EditMyProject: React.FC<
   return (
     <div className="container">
       <div className="row editTitle ">
-        <Icon small>priority_high</Icon> [ modifica o elimina tu proyecto ]
+        <div className="col s12 m5 offset-m2">
+          <Icon small>priority_high</Icon> [ modifica o elimina tu proyecto ]
+        </div>
       </div>
       <div className="row ">
-        <div className="col s4 offset-s4">
+        <div className="col s12 m5 offset-m3">
           <div className="card-panel ">
             <div className="row">
               <div className="col s12">
@@ -183,7 +185,7 @@ const EditMyProject: React.FC<
                   ))}
                 </Select>
                 <div className="row">
-                  <div className="col s6">
+                  <div className="col s6 center">
                     <Button
                       className="teal lighten-2"
                       floating
@@ -196,10 +198,10 @@ const EditMyProject: React.FC<
                       onClick={() => updateMyProject(project._id, project)}
                     />
                   </div>
-                  <div className="col s6">
+                  <div className="col s6 center">
                     <Modal
                       header="Vas a eliminar tu proyecto, se eliminarán también las ideas aportadas por otros usuarios."
-                      className="modalShow"
+                      className="modalShowInfo"
                       options={{ dismissible: false }}
                       trigger={
                         <Button

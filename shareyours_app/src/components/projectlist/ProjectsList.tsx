@@ -18,8 +18,8 @@ interface IPropsGlobal {
   users: IUser[];
   projects: IProject[];
   tags: ITag[];
-  setProjects: (projects: IProject[]) => void;
-  setIdeas: (ideas: IIdea[]) => void;
+  // setProjects: (projects: IProject[]) => void;
+  // setIdeas: (ideas: IIdea[]) => void;
 }
 
 const ProjectsList: React.FC<
@@ -30,38 +30,38 @@ const ProjectsList: React.FC<
     setProjectValue(event.currentTarget.value);
   };
 
-  const getProjects = () => {
-    fetch("http://localhost:3000/api/projects", {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: "Bearer " + props.token
-      }
-    }).then(resp => {
-      if (resp.ok) {
-        resp.json().then(projects => {
-          props.setProjects(projects);
-        });
-      }
-    });
-  };
+  // const getProjects = () => {
+  //   fetch("http://localhost:3000/api/projects", {
+  //     headers: {
+  //       "Content-type": "application/json",
+  //       Authorization: "Bearer " + props.token
+  //     }
+  //   }).then(resp => {
+  //     if (resp.ok) {
+  //       resp.json().then(projects => {
+  //         props.setProjects(projects);
+  //       });
+  //     }
+  //   });
+  // };
 
-  const getIdeas = () => {
-    fetch("http://localhost:3000/api/ideas", {
-      headers: {
-        "Content-type": "application/json",
-        Authorization: "Bearer " + props.token
-      }
-    }).then(resp => {
-      if (resp.ok) {
-        resp.json().then(ideas => {
-          props.setIdeas(ideas);
-        });
-      }
-    });
-  };
+  // const getIdeas = () => {
+  //   fetch("http://localhost:3000/api/ideas", {
+  //     headers: {
+  //       "Content-type": "application/json",
+  //       Authorization: "Bearer " + props.token
+  //     }
+  //   }).then(resp => {
+  //     if (resp.ok) {
+  //       resp.json().then(ideas => {
+  //         props.setIdeas(ideas);
+  //       });
+  //     }
+  //   });
+  // };
 
-  useEffect(getIdeas, [props.token]);
-  useEffect(getProjects, [props.token]);
+  // useEffect(getIdeas, [props.token]);
+  // useEffect(getProjects, [props.token]);
 
   return (
     <div className="container">
@@ -90,7 +90,7 @@ const ProjectsList: React.FC<
                 .includes(projectValue.toLocaleLowerCase())
           )
           .map(project => (
-            <div className="col s4 flipCol " key={project._id}>
+            <div className="col s12 m4 flipCol " key={project._id}>
               <Flippy
                 flipOnHover={true}
                 flipDirection="horizontal"
@@ -182,12 +182,12 @@ const mapStateToProps = (state: IGlobalState) => ({
   projects: state.projects
 });
 
-const mapDispatchToProps = {
-  setProjects: actions.setProjects,
-  setIdeas: actions.setIdeas
-};
+// const mapDispatchToProps = {
+//   setProjects: actions.setProjects,
+//   setIdeas: actions.setIdeas
+// };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  // mapDispatchToProps
 )(ProjectsList);

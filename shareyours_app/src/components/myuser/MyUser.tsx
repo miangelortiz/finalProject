@@ -94,7 +94,7 @@ const MyUser: React.FC<
   return (
     <div className="container">
       <div className="row">
-        <div className="col s4 offset-s4 ">
+        <div className="col s12 m4 offset-m4 ">
           <div className="card">
             <div className="card-image waves-effect waves-block waves-light">
               <img
@@ -223,7 +223,7 @@ const MyUser: React.FC<
                 </Select>
 
                 <div className="row myUserC">
-                  <div className="col s6">
+                  <div className="col s6 center">
                     <Button
                       className="teal lighten-2"
                       floating
@@ -235,14 +235,14 @@ const MyUser: React.FC<
                       onClick={() => updateUser(userLog._id, userLog)}
                     />
                   </div>
-                  <div className="col s6">
+                  <div className="col s6 center">
                     <Modal
                       header="Vas a eliminar tu cuenta, se eliminarán también todos tus proyectos e ideas aportadas a otros usuarios."
-                      className="modalShow"
+                      className="modalShowInfo"
                       options={{ dismissible: false }}
                       trigger={
                         <Button
-                          className="teal lighten-2"
+                          className="red lighten-1"
                           floating
                           node="a"
                           waves="light"

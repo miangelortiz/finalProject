@@ -13,3 +13,22 @@
   padding-bottom: 20px;
   padding-right: 200px;
 }
+
+@media screen and (max-width: 600px) {
+  .addTitle {
+    text-align: unset;
+    padding-right: unset;
+  }
+  .validateB {
+    font-size: 15px;
+  }
+  label {
+    font-size: 0.8rem !important;
+  }
+  .createSelect input {
+    font-size: 12px !important;
+  }
+  .modalShow{
+    width: 350px !important;
+  }
+}

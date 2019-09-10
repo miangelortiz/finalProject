@@ -34,7 +34,7 @@ const TagsProjects: React.FC<
       <div className="row titlePlist">#{tag.name}</div>
       <div className="row flipRow">
         {projects.map(p => (
-          <div className="col s4 flipCol" key={p._id}>
+          <div className="col s12 m4 flipCol" key={p._id}>
             <Flippy
               flipOnHover={true}
               flipDirection="horizontal"
@@ -106,8 +106,7 @@ const TagsProjects: React.FC<
                     {new Date(p.created).toLocaleDateString()}
                   </div>
                   <div className="col s6">
-                    {p.votes.length}
-                    <Icon tiny>thumb_up</Icon>
+                    {p.votes.length} <Icon tiny>thumb_up</Icon>
                   </div>
                 </div>
               </BackSide>

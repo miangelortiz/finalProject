@@ -31,7 +31,7 @@ const App: React.FC<IPropsGlobal> = props => {
     }
   };
 
-  useEffect(tokenVerify, []);
+  useEffect(tokenVerify, [props.token]);
 
   return (
     <BrowserRouter>

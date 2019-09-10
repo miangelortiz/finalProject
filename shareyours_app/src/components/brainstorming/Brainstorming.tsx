@@ -129,7 +129,7 @@ const Brainstorming: React.FC<IPropsGlobal> = props => {
             {brainIdeas.length > 0 && (
               <>
                 {brainIdeas.map(bsi => (
-                  <div className="col s2 liPosit" key={bsi._id}>
+                  <div className="col s12 m2 liPosit" key={bsi._id}>
                     <li>
                       <a className="aPosit">
                         <div className="row">

@@ -8,7 +8,11 @@ body {
 }
 
 .mainRow {
-  padding-top: 150px;
+  padding-top: 180px;
+}
+
+.mainFootRow {
+  padding-top: 180px;
 }
 
 .mainImage {
@@ -33,4 +37,25 @@ body {
   margin-left: 0;
   margin-right: 0;
   margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .mainRow {
+    padding-top: unset;
+  }
+  .mainFootRow{
+    padding-top: unset;
+    padding-left: 100px;
+  }
+  .mainImage {
+    width: 200px;
+    margin-left: 55px;
+  }
+  .mainTitle {
+   display: none;
+  }
+  .bounceInRight ul {
+    width: 300px !important;
+    float: right !important;
+  }
 }

@@ -15,10 +15,10 @@ const Main: React.FC<IPropsGlobal> = () => {
   return (
     <div className="container mainCont">
       <div className="row mainRow">
-        <div className="col s6 animated  bounceInLeft slow">
+        <div className="col s6 m6 animated  bounceInLeft slow">
           <img src="/images/logo.png" alt="" className="mainImage" />
         </div>
-        <div className="col s6">
+        <div className="col s12 m6">
           <div className="row">
             <div className="col s12 m8 animated  bounceInRight">
               <div className="mainTitle animated  wobble slow">
@@ -44,8 +44,8 @@ const Main: React.FC<IPropsGlobal> = () => {
           </div>
         </div>
       </div>
-      <div className="row mainRow">
-        <div className="col s12">© 2019 ShareYours [ a startup comunity ]</div>
+      <div className="row mainFootRow">
+        <div className="col s12">© 2019 ShareYours</div>
       </div>
     </div>
   );

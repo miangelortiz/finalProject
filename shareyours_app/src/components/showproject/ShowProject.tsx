@@ -90,18 +90,18 @@ const ShowProject: React.FC<
           </div>
         </div>
         <div className="row">
-          <div className="col s7">
+          <div className="col m7">
             <div className="card-panel ">
               <div className="row titleProject">
-                <div className="col s12">{project.title}</div>
+                <div className="col m12">{project.title}</div>
               </div>
               <div className="row contentProject">
-                <div className="col s12">
+                <div className="col m12">
                   <p>{project.content}</p>
                 </div>
               </div>
               <div className="row ">
-                <div className="col s1 showVproject ">
+                <div className="col m1 showVproject ">
                   <Button
                     className="teal lighten-2"
                     floating
@@ -114,7 +114,7 @@ const ShowProject: React.FC<
                     {project.votes.length}
                   </Button>{" "}
                 </div>
-                <div className="col s11 showTproject">
+                <div className="col m11 showTproject">
                   {project.votes.find(v => v === props.myUser.id) && (
                     <span>
                       <Icon className="showIcon" tiny>thumb_up</Icon>
@@ -124,7 +124,7 @@ const ShowProject: React.FC<
               </div>
 
               <div className="row">
-                <div className="col s12">
+                <div className="col m12">
                   <div>
                     {project.tags.map(tag => (
                       <Link to={"/projects/tag/" + tag._id} key={tag._id}>
@@ -136,7 +136,7 @@ const ShowProject: React.FC<
               </div>
 
               <div className="row">
-                <div className="col s10">
+                <div className="col m10">
                   <hr />
                   <p>
                     ideado el {new Date(project.created).toLocaleDateString()}{" "}
@@ -154,7 +154,7 @@ const ShowProject: React.FC<
                   projectIdeas.findIndex(
                     i => i.user._id === props.myUser.id
                   ) === -1 && (
-                    <div className="col s2">
+                    <div className="col m2">
                       <Modal
                         header="[ aporta tu idea ]"
                         className="modalShow"
@@ -179,17 +179,17 @@ const ShowProject: React.FC<
               </div>
             </div>
           </div>
-          <div className="col s5">
+          <div className="col m5">
             {projectIdeas.map(i => (
               <div className="card-panel animated  bounceInRight" key={i._id}>
                 <div className="row">
-                  <div className="col s12">
+                  <div className="col m12">
                     <Icon small>lightbulb_outline</Icon>
                     <p className="showIuser">{i.content}</p>
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col s9">
+                  <div className="col m9">
                     <span>por </span>
                     <Link to={"/projects/user/all/" + i.user._id}>
                       <span className="showDuser"> {i.user.name} </span>
@@ -198,13 +198,13 @@ const ShowProject: React.FC<
                     <span>{new Date(i.created).toLocaleDateString()}</span>
                   </div>
                   {props.myUser.id === i.user._id && (
-                    <div className="col s3">
+                    <div className="col m3">
                       <Modal
                         header="[ actualiza tu idea ]"
                         options={{ dismissible: false }}
                         className="modalShow"
                         trigger={
-                          <a>
+                          <a href="#">
                             <Icon tiny>edit</Icon>
                             <span className="showDuser"> editar </span>
                           </a>

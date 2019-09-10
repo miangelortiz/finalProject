@@ -13,7 +13,8 @@ const {
   Textarea,
   Select,
   Button,
-  Icon
+  Icon,
+  Badge
 } = require("react-materialize");
 
 interface IPropsGlobal {
@@ -29,15 +30,19 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
   const [subTitleValue, setSubTitleValue] = React.useState<string>("");
   const [contentValue, setContentValue] = React.useState<string>("");
   const [tags, setTagsValue] = React.useState<string[]>([]);
+  const [error, setError] = React.useState<string>("");
 
   const titleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitleValue(event.currentTarget.value);
+    setError("");
   };
   const subTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSubTitleValue(event.currentTarget.value);
+    setError("");
   };
   const contentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContentValue(event.currentTarget.value);
+    setError("");
   };
   const tagsChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const options = event.currentTarget.options;
@@ -71,6 +76,8 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
           props.addNewProject(p);
           props.history.push(`/projects/user/${userId}`);
         });
+      } else {
+        setError("Debe rellenar todos los campos");
       }
     });
   };
@@ -78,10 +85,12 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
   return (
     <div className="container">
       <div className="row addTitle ">
-        <Icon small>add</Icon> [ crea un proyecto ]
+        <div className="col s12 m5 offset-m2">
+          <Icon small>add</Icon> [ crea un proyecto ]
+        </div>
       </div>
       <div className="row ">
-        <div className="col s4 offset-s4 ">
+        <div className="col s12 m5 offset-m3 ">
           <div className="card-panel ">
             <div className="row">
               <div className="col s12">
@@ -124,7 +133,7 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
               </div>
             </div>
             <div className="row">
-              <div className="col s12">
+              <div className="col s12 createSelect">
                 <Select
                   multiple
                   onChange={tagsChange}
@@ -154,6 +163,7 @@ const AddProject: React.FC<IPropsGlobal & RouteComponentProps<any>> = props => {
                   <div className="col s10 validateP">
                     <span> ...comparte tu proyecto!!</span>
                   </div>
+                  <Badge className="red-text">{error}</Badge>
                 </div>
               </div>
             </div>

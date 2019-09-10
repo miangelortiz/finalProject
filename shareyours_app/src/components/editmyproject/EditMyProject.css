@@ -8,3 +8,11 @@
 .editVotes {
   font-weight: bold;
 }
+
+@media screen and (max-width: 600px) {
+  .editTitle {
+    font-size:18px;
+    text-align: unset;
+    padding-right: unset;
+  }
+}

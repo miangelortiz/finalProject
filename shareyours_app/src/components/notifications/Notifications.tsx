@@ -23,8 +23,10 @@ const Notifications: React.FC<
   const myBsIdea = props.bsIdeas.find(bsi => bsi.user._id === props.myUser.id);
 
   return (
-    <div>
-      <span className="voteTitle">#proyectos</span> <hr />
+    <>
+      <hr />
+      <span className="voteTitle">#proyectos</span>
+      <hr />
       {myProjects.length === 0 && <p>No tienes ningun proyecto publicado</p>}
       {myProjects.length > 0 && (
         <>
@@ -38,9 +40,8 @@ const Notifications: React.FC<
                   <span className="totalVotes">{p.votes.length}</span> votos de:
                 </p>
               )}
-
               {p.votes.map(v => (
-                <Link to={"/projects/user/all/" + v}>
+                <Link to={"/projects/user/all/" + v} key={v}>
                   <span className="vUserLinks">
                     {" "}
                     {props.users
@@ -55,6 +56,7 @@ const Notifications: React.FC<
           ))}
         </>
       )}
+      <hr/>
       <span className="voteTitle">#proyecto de la semana</span>
       <hr />
       {!myBsIdea && (
@@ -75,7 +77,7 @@ const Notifications: React.FC<
             </p>
           )}
           {myBsIdea.votes.map(bsv => (
-            <Link to={"/projects/user/all/" + bsv}>
+            <Link to={"/projects/user/all/" + bsv} key={bsv}>
               <span className="vUserLinks">
                 {" "}
                 {props.users.filter(u => u._id === bsv).map(n => n.name)} -{" "}
@@ -84,7 +86,7 @@ const Notifications: React.FC<
           ))}
         </>
       )}
-    </div>
+    </>
   );
 };
 

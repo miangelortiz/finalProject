@@ -37,7 +37,7 @@ const MyProjects: React.FC<
                   new Date(p1.created).valueOf()
               )
               .map(project => (
-                <div className="col flipCol" key={project._id}>
+                <div className="col s12 m4 flipCol" key={project._id}>
                   <Flippy
                     flipOnHover={true}
                     flipDirection="horizontal"
