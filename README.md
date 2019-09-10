@@ -1,8 +1,8 @@
 # finalProject
-Final project Codespace Academy
+Proyecto final Codespace Academy
 
 # ShareYours - a startup community
 
 
-in progress...
+Web donde podemos compartir nuestros proyectos e ideas para crear una red social de brainstorming.
 
