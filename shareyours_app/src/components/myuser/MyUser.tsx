@@ -84,9 +84,9 @@ const MyUser: React.FC<
       }
     }).then(resp => {
       if (resp.ok) {
-        props.Reset();
+        // props.history.push("/");
         localStorage.removeItem("token");
-        props.history.push("/");
+        props.Reset();
       }
     });
   };

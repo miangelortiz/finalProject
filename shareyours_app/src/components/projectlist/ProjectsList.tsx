@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./ProjectList.css";
 import { IMyUser, IUser } from "../../interfaces/userInterfaces";
-import * as actions from "../../actions/actions";
+
 import { IProject } from "../../interfaces/projectInterfaces";
 import { IGlobalState } from "../../reducers/reducers";
 import { connect } from "react-redux";
 import { ITag } from "../../interfaces/tagInterface";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { IIdea } from "../../interfaces/ideaInterface";
 
 const { Flippy, FrontSide, BackSide } = require("react-flippy");
 const { Icon, Button, TextInput } = require("react-materialize");
@@ -18,8 +17,6 @@ interface IPropsGlobal {
   users: IUser[];
   projects: IProject[];
   tags: ITag[];
-  // setProjects: (projects: IProject[]) => void;
-  // setIdeas: (ideas: IIdea[]) => void;
 }
 
 const ProjectsList: React.FC<
@@ -29,39 +26,6 @@ const ProjectsList: React.FC<
   const projectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setProjectValue(event.currentTarget.value);
   };
-
-  // const getProjects = () => {
-  //   fetch("http://localhost:3000/api/projects", {
-  //     headers: {
-  //       "Content-type": "application/json",
-  //       Authorization: "Bearer " + props.token
-  //     }
-  //   }).then(resp => {
-  //     if (resp.ok) {
-  //       resp.json().then(projects => {
-  //         props.setProjects(projects);
-  //       });
-  //     }
-  //   });
-  // };
-
-  // const getIdeas = () => {
-  //   fetch("http://localhost:3000/api/ideas", {
-  //     headers: {
-  //       "Content-type": "application/json",
-  //       Authorization: "Bearer " + props.token
-  //     }
-  //   }).then(resp => {
-  //     if (resp.ok) {
-  //       resp.json().then(ideas => {
-  //         props.setIdeas(ideas);
-  //       });
-  //     }
-  //   });
-  // };
-
-  // useEffect(getIdeas, [props.token]);
-  // useEffect(getProjects, [props.token]);
 
   return (
     <div className="container">
@@ -182,12 +146,4 @@ const mapStateToProps = (state: IGlobalState) => ({
   projects: state.projects
 });
 
-// const mapDispatchToProps = {
-//   setProjects: actions.setProjects,
-//   setIdeas: actions.setIdeas
-// };
-
-export default connect(
-  mapStateToProps,
-  // mapDispatchToProps
-)(ProjectsList);
+export default connect(mapStateToProps)(ProjectsList);

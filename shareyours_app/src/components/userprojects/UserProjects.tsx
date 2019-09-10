@@ -35,7 +35,7 @@ const UserProjects: React.FC<
         <Icon small>folder_shared</Icon> [ proyectos de {user.name} ]
       </div>
       <div className="row flipRow">
-        {/* {!userProjects && <p>No tienes todavía ningún proyecto publicado.¡¿A qué esperas?!</p> } */}
+        {userProjects.length===0 && <p className="noProjects">No hay ningún proyecto publicado</p> }
         {userProjects.map(project => (
           <div className="col flipCol" key={project._id}>
             <Flippy
