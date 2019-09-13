@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel");
 const projectModel = require("../models/projectModel");
 const ideaModel = require("../models/ideaModel");
+const bsIdeaModel = require("../models/bsIdeaModel");
 const md5 = require("md5");
 const jwt = require("jsonwebtoken");
 
@@ -110,6 +111,11 @@ controller.delUser = async (req, res) => {
         }
       });
       await projectModel.deleteMany({ user: userId }, (err, _obj) => {
+        if (err) {
+          res.sendStatus(404);
+        }
+      });
+      await bsIdeaModel.findOneAndDelete({ user: userId }, (err, _obj) => {
         if (err) {
           res.sendStatus(404);
         }

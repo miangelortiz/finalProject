@@ -169,12 +169,9 @@ const RegisterUser: React.FC<IPropsGlobal> = props => {
         small
         icon="check"
         tooltip="¡Regístrate!"
-        tooltipOptions={{ position: "right" }}
+        tooltipOptions={{ position: "bottom" }}
         onClick={regUser}
       />
-      {/* <span>
-        <strong> ...solo estás a un paso</strong>
-      </span> */}
       <Badge className="red-text">{error}</Badge>
       <Badge className="teal-text">{msg}</Badge>
     </span>
