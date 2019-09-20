@@ -1,4 +1,5 @@
-# ShareYours ## - a startup community -
+# ShareYours
+## - a startup community -
 
 Final Project Codespace Academy.
 
