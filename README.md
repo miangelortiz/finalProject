@@ -23,3 +23,4 @@ Web where we can share our projects and ideas to create a brainstorming social n
 ## Author
 
 * **Miguel Ángel Ortiz Olid** - * Full stack web development graduate* - 
+[LinkedIn](https://www.linkedin.com/in/maortizolid/)
