@@ -1,8 +1,9 @@
-# finalProject
-Proyecto final Codespace Academy
-
 # ShareYours - a startup community
 
+Final Project Codespace Academy.
+Web where we can share our projects and ideas to create a brainstorming social network.
 
-Web donde podemos compartir nuestros proyectos e ideas para crear una red social de brainstorming.
+## Technologies
+React-Hooks
+Redux
 
