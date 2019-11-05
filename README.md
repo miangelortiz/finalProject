@@ -12,10 +12,11 @@ Web where we can share our projects and ideas to create a brainstorming social n
 * Materialize-css
 * React-Materialize
 * TypeScript
+* JavaScript (ES6)
+
 ### Back
 * NodeJS
 * Express
-* JavaScript (ES6)
 * MongoDB
 * Mongoose
 * JsonWebToken
