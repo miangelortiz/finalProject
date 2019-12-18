@@ -28,6 +28,8 @@ Web where we can share our projects and ideas to create a brainstorming social n
 ![Project Images](https://raw.githubusercontent.com/miangelortiz/finalProject/master/project_images/projectImage4.PNG)
 ![Project Images](https://raw.githubusercontent.com/miangelortiz/finalProject/master/project_images/projectImage6.PNG)
 ![Project Images](https://raw.githubusercontent.com/miangelortiz/finalProject/master/project_images/projectImage5.PNG)
+![Project Images](https://raw.githubusercontent.com/miangelortiz/finalProject/master/project_images/projectImage7.PNG)
+![Project Images](https://raw.githubusercontent.com/miangelortiz/finalProject/master/project_images/projectImage8.PNG)
 
 ## Author
 
