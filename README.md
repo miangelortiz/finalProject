@@ -21,6 +21,9 @@ Web where we can share our projects and ideas to create a brainstorming social n
 * Mongoose
 * JsonWebToken
 
+## Project images
+![Project Images](https://raw.githubusercontent.com/miangelortiz/finalProject/master/project_images/projectImage1.PNG)
+
 ## Author
 
 * **Miguel Ángel Ortiz Olid** - *Full stack web development graduate* - 
